@@ -45,7 +45,7 @@ export function PersonSection({ locale }: { locale: Locale }) {
               {p.bio.map((paragraph, index) => (
                 <p
                   key={index}
-                  className="text-base font-light leading-relaxed text-foreground/80"
+                  className="text-sm md:text-base font-light leading-relaxed text-foreground/80"
                 >
                   {paragraph}
                 </p>

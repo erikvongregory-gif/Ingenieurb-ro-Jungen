@@ -24,7 +24,7 @@ export function RichSections({
             {section.paragraphs.map((paragraph, index) => (
               <p
                 key={index}
-                className="text-base md:text-lg font-light leading-relaxed text-foreground/80"
+                className="text-sm md:text-lg font-light leading-relaxed text-foreground/80"
               >
                 {paragraph}
               </p>

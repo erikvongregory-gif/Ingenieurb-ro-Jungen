@@ -69,7 +69,7 @@ export default async function ReferencesPage({ params }: PageProps) {
             {refs.intro.map((paragraph, index) => (
               <p
                 key={index}
-                className="text-base md:text-lg font-light leading-relaxed text-foreground/80"
+                className="text-sm md:text-lg font-light leading-relaxed text-foreground/80"
               >
                 {paragraph}
               </p>

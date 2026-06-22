@@ -424,7 +424,13 @@ export function PixelHero({
       </div>
 
       {/* Mobile-only Marquee Block */}
-      <div className="block md:hidden order-4 w-full mt-12 pointer-events-auto">
+      <div
+        className={cn(
+          "block md:hidden order-4 w-full mt-12 pointer-events-auto transition-all duration-1000 transform",
+          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+        )}
+        style={{ transitionDelay: "600ms" }}
+      >
         <div className="mb-4 text-center text-[11px] font-medium uppercase tracking-wider text-muted-foreground/80">
           {brandsLabel}
         </div>

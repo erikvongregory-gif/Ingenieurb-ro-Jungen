@@ -75,7 +75,7 @@ function PrivacyContent({ locale }: { locale: Locale }) {
                       {block.paragraphs?.map((paragraph, paragraphIndex) => (
                         <p
                           key={paragraphIndex}
-                          className="mt-2 text-base font-light leading-relaxed text-foreground/75"
+                          className="mt-2 text-sm md:text-base font-light leading-relaxed text-foreground/75"
                         >
                           {linkify(paragraph)}
                         </p>
@@ -85,7 +85,7 @@ function PrivacyContent({ locale }: { locale: Locale }) {
                           {block.bullets.map((bullet, bulletIndex) => (
                             <li
                               key={bulletIndex}
-                              className="flex gap-2 text-base font-light leading-relaxed text-foreground/75"
+                              className="flex gap-2 text-sm md:text-base font-light leading-relaxed text-foreground/75"
                             >
                               <span
                                 aria-hidden

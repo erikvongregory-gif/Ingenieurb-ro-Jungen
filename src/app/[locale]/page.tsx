@@ -94,7 +94,7 @@ function HomeContent({ locale }: { locale: Locale }) {
             {content.intro.map((paragraph, index) => (
               <p
                 key={index}
-                className="text-base md:text-lg font-light leading-relaxed text-foreground/80"
+                className="text-sm md:text-lg font-light leading-relaxed text-foreground/80"
               >
                 {paragraph}
               </p>
@@ -189,7 +189,7 @@ function HomeContent({ locale }: { locale: Locale }) {
                       <h3 className="mt-4 font-sans font-extrabold tracking-tight text-foreground text-2xl md:text-3xl">
                         {service.title}
                       </h3>
-                      <p className="mt-4 max-w-md text-base font-light leading-relaxed text-foreground/80">
+                      <p className="mt-4 max-w-md text-sm md:text-base font-light leading-relaxed text-foreground/80">
                         {service.shortDescription}
                       </p>
                       <ul className="mt-6 flex flex-col gap-3">
@@ -263,7 +263,7 @@ function HomeContent({ locale }: { locale: Locale }) {
           <Card className="group relative overflow-hidden p-10 md:p-16 text-center transition duration-500 hover:ring-primary/40">
             <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--primary),transparent_70%)] opacity-[0.12] transition-opacity duration-500 group-hover:opacity-25" />
             <SectionHeading>{content.cta.heading}</SectionHeading>
-            <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg font-light leading-relaxed text-foreground/80">
+            <p className="mx-auto mt-5 max-w-2xl text-sm md:text-lg font-light leading-relaxed text-foreground/80">
               {content.cta.text}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">

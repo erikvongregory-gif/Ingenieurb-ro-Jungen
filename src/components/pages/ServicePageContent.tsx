@@ -185,7 +185,7 @@ export function ServicePageContent({
             <Card className="group relative overflow-hidden p-10 md:p-14 text-center transition duration-500 hover:ring-primary/40">
               <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--primary),transparent_70%)] opacity-[0.12] transition-opacity duration-500 group-hover:opacity-25" />
               <SectionHeading>{tc("getInTouch")}</SectionHeading>
-              <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg font-light leading-relaxed text-foreground/80">
+              <p className="mx-auto mt-5 max-w-2xl text-sm md:text-lg font-light leading-relaxed text-foreground/80">
                 {service.lead}
               </p>
               <div className="mt-8 flex justify-center">

@@ -41,7 +41,7 @@ function ImprintContent({ locale }: { locale: Locale }) {
       <PageHeader title={t("h1")} />
       <Section className="pt-8 md:pt-10">
         <Container size="narrow">
-          <div className="flex flex-col gap-10 text-base font-light leading-relaxed text-foreground/75">
+          <div className="flex flex-col gap-10 text-sm md:text-base font-light leading-relaxed text-foreground/75">
             <div>
               <p>{c.ownerIntro}</p>
               <address className="mt-4 flex flex-col gap-1 not-italic">
