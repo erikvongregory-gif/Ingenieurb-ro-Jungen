@@ -76,7 +76,7 @@ export function SectionHeading({
   return (
     <Tag
       className={cn(
-        "font-sans font-extrabold tracking-tighter text-foreground text-3xl sm:text-4xl md:text-5xl leading-[1.05]",
+        "font-sans font-extrabold tracking-tighter text-foreground text-3xl sm:text-4xl md:text-5xl leading-[1.05] hyphens-auto [overflow-wrap:break-word]",
         className,
       )}
     >

@@ -373,7 +373,7 @@ export function PixelHero({
 
       {/* Top Container: Tahoe Glass Header */}
       <div className="flex flex-col items-center justify-center text-center order-1 md:order-1 mt-0 pointer-events-none w-full">
-        <h1 className="tahoe-glass-text flex flex-col items-center justify-center gap-1.5 sm:gap-3 lg:gap-4 px-1 w-full max-w-full text-[clamp(1.5rem,7vw,3.75rem)] md:text-8xl lg:text-9xl leading-tight md:leading-none [text-wrap:balance]">
+        <h1 className="tahoe-glass-text flex flex-col items-center justify-center gap-1.5 sm:gap-3 lg:gap-4 px-1 w-full max-w-full text-[clamp(1.75rem,8.5vw,3.75rem)] md:text-8xl lg:text-9xl leading-tight md:leading-none [text-wrap:balance]">
           <span className="block max-w-full font-serif italic font-medium [overflow-wrap:anywhere] hyphens-auto">
             {word1}
           </span>

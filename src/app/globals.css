@@ -105,10 +105,18 @@
   --breakpoint-xs: 30rem;
 }
 
+html {
+  /* Verhindert horizontales „Wegschieben" auf Mobile, falls ein Element
+     minimal über die Viewportbreite hinausragt. */
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /**
