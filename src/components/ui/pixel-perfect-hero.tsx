@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { openContactModal } from "@/lib/contact";
 
 /* -----------------------------------------------------------------------------
  * BRAND-MARQUEE
@@ -276,6 +277,8 @@ interface PixelHeroProps {
   primaryHref?: string;
   /** Ziel-URL sekundärer CTA (z. B. /referenzen). */
   secondaryHref?: string;
+  /** Öffnet beim primären CTA das Kontaktmodal statt zu navigieren. */
+  primaryAsModal?: boolean;
   /** Marken-/Partner-Logos im Marquee. */
   brands?: Brand[];
   /** Überschrift über dem Marquee. */
@@ -292,6 +295,7 @@ export function PixelHero({
   secondaryCtaMobile = "Referenzen",
   primaryHref = "#",
   secondaryHref = "#",
+  primaryAsModal = false,
   brands = DEFAULT_BRANDS,
   brandsLabel = "Technologien & Partner, mit denen wir arbeiten",
 }: PixelHeroProps) {
@@ -348,6 +352,9 @@ export function PixelHero({
             0% { background-position: 200% center; }
             100% { background-position: 0% center; }
         }
+        @media (max-width: 640px) {
+          .tahoe-glass-text { -webkit-text-stroke-width: 0.6px; }
+        }
         @media (prefers-reduced-motion: reduce) {
           .tahoe-glass-text { animation: none; }
           .animate-marquee { animation: none; }
@@ -360,13 +367,17 @@ export function PixelHero({
           <PixelCanvas colors={themeColors} gap={10} speed={30} />
         )}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_100%)] pointer-events-none opacity-80" />
+        {/* Weicher Auslauf der Pixel zum Seiteninhalt: vermeidet harte Kante. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-40 md:h-56 bg-gradient-to-b from-transparent to-background" />
       </div>
 
       {/* Top Container: Tahoe Glass Header */}
       <div className="flex flex-col items-center justify-center text-center order-1 md:order-1 mt-0 pointer-events-none w-full">
-        <h1 className="tahoe-glass-text flex flex-col items-center justify-center gap-1.5 sm:gap-3 lg:gap-4 px-1 w-full text-[clamp(1.7rem,8vw,3.75rem)] md:text-8xl lg:text-9xl leading-tight md:leading-none [text-wrap:balance]">
-          <span className="font-serif italic font-medium">{word1}</span>
-          <span className="font-sans font-extrabold tracking-tighter">
+        <h1 className="tahoe-glass-text flex flex-col items-center justify-center gap-1.5 sm:gap-3 lg:gap-4 px-1 w-full max-w-full text-[clamp(1.5rem,7vw,3.75rem)] md:text-8xl lg:text-9xl leading-tight md:leading-none [text-wrap:balance]">
+          <span className="block max-w-full font-serif italic font-medium [overflow-wrap:anywhere] hyphens-auto">
+            {word1}
+          </span>
+          <span className="block max-w-full font-sans font-extrabold tracking-tighter [overflow-wrap:anywhere]">
             {word2}
           </span>
         </h1>
@@ -389,6 +400,14 @@ export function PixelHero({
       >
         <a
           href={primaryHref}
+          onClick={
+            primaryAsModal
+              ? (e) => {
+                  e.preventDefault();
+                  openContactModal();
+                }
+              : undefined
+          }
           className="relative inline-flex h-10 md:h-12 items-center justify-center gap-1.5 md:gap-2 rounded-xl bg-gradient-to-b from-primary/90 to-primary px-4 md:px-8 text-xs md:text-sm font-semibold text-primary-foreground shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_2px_4px_rgba(0,0,0,0.15),0_12px_24px_rgba(0,0,0,0.15)] ring-1 ring-primary/20 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
         >
           <span className="inline md:hidden">{primaryCtaMobile}</span>

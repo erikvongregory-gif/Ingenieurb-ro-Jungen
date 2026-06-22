@@ -12,8 +12,10 @@ import {
 } from "@/lib/seo/structured-data";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { PageTransition } from "@/components/layout/PageTransition";
 import { SiteBackground } from "@/components/layout/SiteBackground";
 import { CookieConsent } from "@/components/consent/CookieConsent";
+import { ContactModal } from "@/components/contact/ContactModal";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -78,10 +80,11 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <SiteHeader locale={locale} />
           <main id="main" className="flex-1">
-            {children}
+            <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter />
           <CookieConsent />
+          <ContactModal />
         </NextIntlClientProvider>
       </body>
     </html>

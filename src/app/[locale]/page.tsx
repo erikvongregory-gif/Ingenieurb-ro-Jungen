@@ -12,6 +12,7 @@ import { PixelHero } from "@/components/ui/pixel-perfect-hero";
 import { FaqMonochrome } from "@/components/ui/faq-monochrome";
 import { Section, Container, Eyebrow, SectionHeading, Card } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { ContactButton } from "@/components/contact/ContactButton";
 import { Reveal } from "@/components/ui/reveal";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { faqSchema, personSchema } from "@/lib/seo/structured-data";
@@ -76,6 +77,7 @@ function HomeContent({ locale }: { locale: Locale }) {
         secondaryCtaMobile={tn("references")}
         primaryHref={kontaktHref}
         secondaryHref={referenzenHref}
+        primaryAsModal
         brands={heroBrands}
         brandsLabel={content.brandsLabel}
       />
@@ -98,9 +100,7 @@ function HomeContent({ locale }: { locale: Locale }) {
             ))}
           </Reveal>
           <Reveal delay={220} className="mt-8 flex justify-center">
-            <ButtonLink href="/kontakt" withArrow>
-              {tc("getInTouch")}
-            </ButtonLink>
+            <ContactButton withArrow>{tc("getInTouch")}</ContactButton>
           </Reveal>
         </Container>
       </Section>
@@ -262,9 +262,7 @@ function HomeContent({ locale }: { locale: Locale }) {
               {content.cta.text}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="/kontakt" withArrow>
-                {tc("getInTouch")}
-              </ButtonLink>
+              <ContactButton withArrow>{tc("getInTouch")}</ContactButton>
               <ButtonLink href="/referenzen" variant="secondary">
                 {tn("references")}
               </ButtonLink>

@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { RichSections } from "@/components/content/RichSections";
 import { PersonCard } from "@/components/content/PersonProfile";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ContactButton } from "@/components/contact/ContactButton";
 import { Section, Container, Card } from "@/components/ui/section";
 import { personSchema } from "@/lib/seo/structured-data";
 import { contactPage } from "@/content/pages";
@@ -31,6 +32,7 @@ export default async function ContactPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
   const content = contactPage[locale];
+  const tm = await getTranslations({ locale, namespace: "ContactModal" });
   return (
     <article>
       <JsonLd data={personSchema(locale)} />
@@ -76,6 +78,11 @@ export default async function ContactPage({ params }: PageProps) {
                   </p>
                 )}
               </address>
+              <div className="mt-6">
+                <ContactButton withArrow className="w-full sm:w-auto">
+                  {tm("open")}
+                </ContactButton>
+              </div>
               </Card>
             </div>
           </div>

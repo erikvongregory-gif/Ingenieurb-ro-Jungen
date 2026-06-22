@@ -3,7 +3,7 @@ import { Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { mainNav } from "@/content/navigation";
 import { siteConfig } from "@/config/site";
-import { ButtonLink } from "@/components/ui/button-link";
+import { ContactButton } from "@/components/contact/ContactButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 /**
@@ -60,12 +60,9 @@ export function SiteHeader({ locale }: { locale: string }) {
             </span>
           </a>
           <LanguageSwitcher locale={locale} />
-          <ButtonLink
-            href="/kontakt"
-            className="hidden h-9 px-4 text-xs sm:inline-flex md:h-10 md:px-5 md:text-sm"
-          >
+          <ContactButton className="hidden h-9 px-4 text-xs sm:inline-flex md:h-10 md:px-5 md:text-sm">
             {tc("getInTouch")}
-          </ButtonLink>
+          </ContactButton>
         </div>
       </div>
     </header>
