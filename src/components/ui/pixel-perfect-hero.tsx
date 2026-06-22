@@ -323,7 +323,7 @@ export function PixelHero({
   }, []);
 
   return (
-    <div className="relative w-full min-h-[100dvh] bg-background flex flex-col justify-between md:justify-center md:gap-6 py-8 md:py-0 px-2 sm:px-6 overflow-hidden select-none isolate">
+    <div className="relative w-full min-h-[100dvh] bg-background flex flex-col md:justify-center md:gap-6 pt-24 pb-10 md:py-0 px-4 sm:px-6 overflow-hidden select-none isolate">
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0%); }
@@ -363,8 +363,8 @@ export function PixelHero({
       </div>
 
       {/* Top Container: Tahoe Glass Header */}
-      <div className="flex flex-col items-center justify-center text-center order-1 md:order-1 mt-28 sm:mt-0 pointer-events-none w-full">
-        <h1 className="tahoe-glass-text flex flex-col items-center justify-center gap-1.5 sm:gap-3 lg:gap-4 px-1 w-full text-[2.8rem] xs:text-[3.2rem] sm:text-6xl md:text-8xl lg:text-9xl leading-none">
+      <div className="flex flex-col items-center justify-center text-center order-1 md:order-1 mt-0 pointer-events-none w-full">
+        <h1 className="tahoe-glass-text flex flex-col items-center justify-center gap-1.5 sm:gap-3 lg:gap-4 px-1 w-full text-[clamp(1.7rem,8vw,3.75rem)] md:text-8xl lg:text-9xl leading-tight md:leading-none [text-wrap:balance]">
           <span className="font-serif italic font-medium">{word1}</span>
           <span className="font-sans font-extrabold tracking-tighter">
             {word2}
@@ -372,37 +372,17 @@ export function PixelHero({
         </h1>
       </div>
 
-      {/* Center Container: Description & Mobile Vector Marquee */}
-      <div className="flex flex-col items-center justify-center text-center my-auto md:my-0 order-2 md:order-2 px-1 w-full pointer-events-none">
-        <p className="text-sm sm:text-lg md:text-xl font-light text-foreground/85 max-w-[95%] sm:max-w-md md:max-w-xl px-1 leading-relaxed">
+      {/* Center Container: Description */}
+      <div className="flex flex-col items-center justify-center text-center mt-5 md:mt-0 order-2 md:order-2 px-1 w-full pointer-events-none">
+        <p className="text-sm sm:text-lg md:text-xl font-light text-foreground/85 max-w-[92%] sm:max-w-md md:max-w-xl px-1 leading-relaxed">
           {description}
         </p>
-
-        <div className="block md:hidden w-full mt-14 pointer-events-auto">
-          <div className="text-[11px] uppercase tracking-wider text-muted-foreground/80 font-medium mb-5">
-            {brandsLabel}
-          </div>
-          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_15%,white_85%,transparent)]">
-            <div className="flex w-max py-1 animate-marquee">
-              <div className="flex shrink-0 items-center gap-12 pr-12">
-                {brands.map((brand, i) => (
-                  <BrandLogo key={i} name={brand.name} src={brand.src} />
-                ))}
-              </div>
-              <div className="flex shrink-0 items-center gap-12 pr-12" aria-hidden="true">
-                {brands.map((brand, i) => (
-                  <BrandLogo key={`c-${i}`} name={brand.name} src={brand.src} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Bottom Container: CTA Row */}
       <div
         className={cn(
-          "pointer-events-auto flex flex-row items-center justify-center gap-3 mt-4 md:mt-10 mb-4 md:mb-0 order-4 md:order-3 transition-all duration-1000 transform px-1",
+          "pointer-events-auto flex flex-row items-center justify-center gap-3 mt-7 md:mt-10 mb-0 md:mb-0 order-3 md:order-3 transition-all duration-1000 transform px-1",
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
         )}
         style={{ transitionDelay: "450ms" }}
@@ -422,6 +402,30 @@ export function PixelHero({
           <span className="inline md:hidden">{secondaryCtaMobile}</span>
           <span className="hidden md:inline">{secondaryCta}</span>
         </a>
+      </div>
+
+      {/* Mobile-only Marquee Block (am unteren Rand verankert) */}
+      <div className="block md:hidden order-4 w-full mt-auto pt-12 pointer-events-auto">
+        <div className="mb-4 text-center text-[11px] font-medium uppercase tracking-wider text-muted-foreground/80">
+          {brandsLabel}
+        </div>
+        <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_15%,white_85%,transparent)]">
+          <div className="flex w-max py-1 animate-marquee">
+            <div className="flex shrink-0 items-center gap-12 pr-12">
+              {brands.map((brand, i) => (
+                <BrandLogo key={i} name={brand.name} src={brand.src} />
+              ))}
+            </div>
+            <div
+              className="flex shrink-0 items-center gap-12 pr-12"
+              aria-hidden="true"
+            >
+              {brands.map((brand, i) => (
+                <BrandLogo key={`c-${i}`} name={brand.name} src={brand.src} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Desktop-only Marquee Block */}
