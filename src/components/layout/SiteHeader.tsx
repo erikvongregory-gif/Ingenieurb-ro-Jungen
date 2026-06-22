@@ -5,6 +5,7 @@ import { mainNav } from "@/content/navigation";
 import { siteConfig } from "@/config/site";
 import { ContactButton } from "@/components/contact/ContactButton";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { MobileMenu } from "./MobileMenu";
 
 /**
  * Sticky Glass-Header im Hero-Stil: transparenter, unscharfer Hintergrund,
@@ -59,10 +60,13 @@ export function SiteHeader({ locale }: { locale: string }) {
               {siteConfig.contact.phoneDisplay}
             </span>
           </a>
-          <LanguageSwitcher locale={locale} />
-          <ContactButton className="hidden h-9 px-4 text-xs sm:inline-flex md:h-10 md:px-5 md:text-sm">
+          <div className="hidden sm:block">
+            <LanguageSwitcher locale={locale} />
+          </div>
+          <ContactButton className="hidden h-9 px-4 text-xs sm:inline-flex lg:h-10 lg:px-5 lg:text-sm">
             {tc("getInTouch")}
           </ContactButton>
+          <MobileMenu locale={locale} />
         </div>
       </div>
     </header>

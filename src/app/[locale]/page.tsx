@@ -15,6 +15,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { ContactButton } from "@/components/contact/ContactButton";
 import { Reveal } from "@/components/ui/reveal";
 import { AnimatedNumber } from "@/components/ui/animated-number";
+import { AnimatedUnderline } from "@/components/ui/animated-underline";
 import { faqSchema, personSchema } from "@/lib/seo/structured-data";
 import { getServices } from "@/content/services";
 import { getHome, heroBrands } from "@/content/home";
@@ -115,7 +116,7 @@ function HomeContent({ locale }: { locale: Locale }) {
                 delay={index * 90}
                 className="group text-center sm:text-left"
               >
-                <dt className="font-sans font-extrabold tracking-tight text-foreground text-2xl transition-colors duration-300 group-hover:text-primary sm:text-3xl">
+                <dt className="font-sans font-extrabold tracking-tight text-foreground text-2xl transition-colors duration-300 group-hover:text-primary sm:text-3xl hyphens-auto [overflow-wrap:break-word]">
                   {stat.value}
                 </dt>
                 <dd className="mt-2 text-sm leading-relaxed text-foreground/75">
@@ -131,7 +132,10 @@ function HomeContent({ locale }: { locale: Locale }) {
       <Section className="border-t border-border/40">
         <Container>
           <Reveal className="max-w-2xl">
-            <SectionHeading>{tc("whyUs")}</SectionHeading>
+            <SectionHeading>
+              {tc("whyUs").split("Jungen")[0]}
+              <AnimatedUnderline>Jungen</AnimatedUnderline>
+            </SectionHeading>
           </Reveal>
           <ol className="mt-12 border-t border-border/40 md:mt-16">
             {content.usps.map((usp, index) => (
@@ -139,12 +143,13 @@ function HomeContent({ locale }: { locale: Locale }) {
                 as="li"
                 key={usp.title}
                 delay={index * 80}
-                className="group grid grid-cols-[2.5rem_1fr] gap-x-5 gap-y-2 border-b border-border/40 px-3 py-7 -mx-3 rounded-xl transition-colors duration-300 hover:bg-foreground/[0.03] md:grid-cols-[4rem_minmax(0,17rem)_1fr] md:gap-x-10 md:py-9"
+                spotlight
+                className="group grid grid-cols-[2.5rem_1fr] gap-x-5 gap-y-2 border-b border-border/40 px-3 py-7 -mx-3 rounded-xl transition-colors duration-300 hover:bg-foreground/[0.03] data-[active=true]:bg-foreground/[0.03] md:grid-cols-[4rem_minmax(0,17rem)_1fr] md:gap-x-10 md:py-9"
               >
                 <AnimatedNumber
                   value={index + 1}
                   delay={index * 80}
-                  className="number-shimmer inline-block bg-gradient-to-r from-primary/50 via-foreground/90 to-primary/50 bg-clip-text font-sans font-extrabold tabular-nums text-2xl leading-none text-transparent transition-[transform,filter] duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.45)] md:text-3xl"
+                  className="number-shimmer inline-block bg-gradient-to-r from-primary/50 via-foreground/90 to-primary/50 bg-clip-text font-sans font-extrabold tabular-nums text-2xl leading-none text-transparent transition-[transform,filter] duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.45)] group-data-[active=true]:scale-110 group-data-[active=true]:drop-shadow-[0_0_10px_rgba(37,99,235,0.45)] md:text-3xl"
                 />
                 <h3 className="self-center font-sans font-bold tracking-tight text-foreground text-lg md:text-xl">
                   {usp.title}

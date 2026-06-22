@@ -176,6 +176,26 @@ body {
   }
 }
 
+/**
+ * MOBILE-ERSATZ FÜR :HOVER
+ * ------------------------------------------------------------------
+ * Touch-Geräte haben kein echtes :hover. Über <Reveal spotlight> bekommt das
+ * gerade zentrierte Element `data-active="true"`. Karten leuchten dann sanft
+ * (formtreues drop-shadow), und beim Antippen gibt es ein dezentes Press-Feedback.
+ */
+@media (hover: none) and (pointer: coarse) {
+  .spotlight-card {
+    transition: filter 450ms ease, transform 200ms ease;
+  }
+  .spotlight-card[data-active="true"] {
+    filter: drop-shadow(0 12px 28px rgba(37, 99, 235, 0.28))
+      drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
+  }
+  .tap-press:active {
+    transform: scale(0.985);
+  }
+}
+
 /* Durchlaufender metallischer Schimmer für die großen Ziffern (Editorial-Liste). */
 @keyframes number-shimmer {
   0% {

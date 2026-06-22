@@ -5,13 +5,16 @@
     "retrofit": "Retrofit",
     "references": "References",
     "contact": "Contact",
-    "links": "Links",
     "imprint": "Imprint",
     "privacy": "Privacy"
   },
   "Common": {
     "skipToContent": "Skip to content",
     "languageSwitch": "Switch language",
+    "menu": "Menu",
+    "navigation": "Navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
     "german": "Deutsch",
     "english": "English",
     "readMore": "Learn more",
@@ -81,12 +84,6 @@
     "emailInvalid": "Please enter a valid email address.",
     "messageRequired": "Please enter a message.",
     "consentRequired": "Please accept the privacy policy."
-  },
-  "Links": {
-    "metaTitle": "Links",
-    "metaDescription": "Further links and partners of Ingenieurbüro Jungen.",
-    "h1": "Links",
-    "intro": "Further links and partners."
   },
   "Imprint": {
     "metaTitle": "Imprint",

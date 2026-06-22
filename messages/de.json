@@ -5,13 +5,16 @@
     "retrofit": "Retrofit",
     "references": "Referenzen",
     "contact": "Kontakt",
-    "links": "Links",
     "imprint": "Impressum",
     "privacy": "Datenschutz"
   },
   "Common": {
     "skipToContent": "Zum Inhalt springen",
     "languageSwitch": "Sprache wechseln",
+    "menu": "Menü",
+    "navigation": "Navigation",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
     "german": "Deutsch",
     "english": "English",
     "readMore": "Mehr erfahren",
@@ -81,12 +84,6 @@
     "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
     "messageRequired": "Bitte geben Sie eine Nachricht ein.",
     "consentRequired": "Bitte stimmen Sie der Datenschutzerklärung zu."
-  },
-  "Links": {
-    "metaTitle": "Links",
-    "metaDescription": "Weiterführende Links und Partner des Ingenieurbüro Jungen.",
-    "h1": "Links",
-    "intro": "Weiterführende Links und Partner."
   },
   "Imprint": {
     "metaTitle": "Impressum",

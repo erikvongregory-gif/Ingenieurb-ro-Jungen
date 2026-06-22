@@ -2,7 +2,7 @@ import type { Locale } from "@/i18n/routing";
 import type { RichSection } from "./types";
 
 /**
- * SEO-TEXTE für einfache Seiten (Referenzen, Kontakt, Links).
+ * SEO-TEXTE für einfache Seiten (Referenzen, Kontakt).
  * H1/Lead + optionale Abschnitte. Inhalte vom Design getrennt.
  */
 
@@ -49,7 +49,7 @@ export const contactPage: Record<Locale, SimplePageContent> = {
     lead: "Sprechen Sie mit uns über Ihr Automatisierungs- oder Retrofit-Projekt. Wir freuen uns auf Ihre Anfrage.",
     sections: [
       {
-        heading: "So erreichen Sie uns",
+        heading: "So erreichen Sie mich",
         paragraphs: [
           "Schildern Sie uns kurz Ihre Aufgabenstellung – ob Neuautomatisierung, SPS-Programmierung, Steuerungsmodernisierung oder Schaltschrankbau. Wir melden uns zeitnah mit einer ersten Einschätzung und den nächsten Schritten.",
         ],
@@ -62,37 +62,9 @@ export const contactPage: Record<Locale, SimplePageContent> = {
     lead: "Talk to us about your automation or retrofit project. We look forward to your enquiry.",
     sections: [
       {
-        heading: "How to reach us",
+        heading: "How to reach me",
         paragraphs: [
           "Briefly describe your task – whether new automation, PLC programming, control modernization or control cabinet construction. We'll get back to you promptly with an initial assessment and next steps.",
-        ],
-      },
-    ],
-  },
-};
-
-export const linksPage: Record<Locale, SimplePageContent> = {
-  de: {
-    h1: "Links und Partner",
-    lead: "Weiterführende Links und Partner rund um Industrieautomation, Steuerungstechnik und Retrofit.",
-    sections: [
-      {
-        heading: "Weiterführende Informationen",
-        paragraphs: [
-          "An dieser Stelle finden Sie ausgewählte Links zu Partnern, Herstellern und nützlichen Ressourcen aus der Automatisierungstechnik.",
-        ],
-        // TODO: Konkrete Links pflegen (bei werblichen Links rel="sponsored"/"nofollow" beachten).
-      },
-    ],
-  },
-  en: {
-    h1: "Links and partners",
-    lead: "Further links and partners around industrial automation, control technology and retrofit.",
-    sections: [
-      {
-        heading: "Further information",
-        paragraphs: [
-          "Here you will find selected links to partners, manufacturers and useful resources from automation technology.",
         ],
       },
     ],

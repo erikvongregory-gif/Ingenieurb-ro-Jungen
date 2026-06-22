@@ -86,8 +86,13 @@ export default async function ReferencesPage({ params }: PageProps) {
 
             <div className="mt-10 grid items-start gap-6 lg:grid-cols-2">
               {refs.projects.map((project, index) => (
-                <Reveal key={project.title} delay={(index % 2) * 120}>
-                  <Card className="flex h-full flex-col p-7 transition duration-300 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_18px_50px_rgba(0,0,0,0.4)] md:p-8">
+                <Reveal
+                  key={project.title}
+                  delay={(index % 2) * 120}
+                  spotlight
+                  className="spotlight-card"
+                >
+                  <Card className="tap-press flex h-full flex-col p-7 transition duration-300 hover:-translate-y-1 hover:ring-primary/30 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_18px_50px_rgba(0,0,0,0.4)] md:p-8">
                   <h3 className="font-sans font-bold tracking-tight text-foreground text-lg md:text-xl">
                     {project.title}
                   </h3>

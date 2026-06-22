@@ -17,7 +17,6 @@ export const mainNav: NavItem[] = [
   { labelKey: "retrofit", pathname: "/retrofit" },
   { labelKey: "references", pathname: "/referenzen" },
   { labelKey: "contact", pathname: "/kontakt" },
-  { labelKey: "links", pathname: "/links" },
 ];
 
 /** Rechtliche Links (Footer). */

@@ -92,8 +92,14 @@ export function ServicePageContent({
             </Reveal>
             <ul className="mt-10 grid gap-4 sm:grid-cols-2">
               {service.benefits.map((benefit, index) => (
-                <Reveal as="li" key={benefit} delay={(index % 2) * 90}>
-                  <Card className="group flex h-full items-start gap-3 p-5 transition duration-300 hover:-translate-y-0.5 hover:ring-primary/40">
+                <Reveal
+                  as="li"
+                  key={benefit}
+                  delay={(index % 2) * 90}
+                  spotlight
+                  className="spotlight-card"
+                >
+                  <Card className="tap-press group flex h-full items-start gap-3 p-5 transition duration-300 hover:-translate-y-0.5 hover:ring-primary/40">
                     <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/15 ring-1 ring-primary/30 transition-all duration-300 group-hover:bg-primary/25 group-hover:scale-110">
                       <Check className="h-3.5 w-3.5 text-primary" />
                     </span>
@@ -116,8 +122,14 @@ export function ServicePageContent({
             </Reveal>
             <ol className="mt-10 grid gap-6 md:grid-cols-3">
               {service.process.map((step, index) => (
-                <Reveal as="li" key={step.step} delay={index * 110}>
-                  <Card className="group h-full p-7 transition duration-300 hover:-translate-y-1 hover:ring-primary/40">
+                <Reveal
+                  as="li"
+                  key={step.step}
+                  delay={index * 110}
+                  spotlight
+                  className="spotlight-card"
+                >
+                  <Card className="tap-press group h-full p-7 transition duration-300 hover:-translate-y-1 hover:ring-primary/40">
                     <AnimatedNumber
                       value={index + 1}
                       delay={index * 110}
