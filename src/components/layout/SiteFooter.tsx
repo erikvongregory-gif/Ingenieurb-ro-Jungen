@@ -84,9 +84,22 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row sm:items-center">
-          <p className="text-xs text-foreground/50">
-            © {year} {siteConfig.name}. {tf("rights")}
-          </p>
+          <div className="flex flex-col gap-1">
+            <p className="text-xs text-foreground/50">
+              © {year} {siteConfig.name}. {tf("rights")}
+            </p>
+            <p className="text-xs text-foreground/40">
+              {tf("createdBy")}{" "}
+              <a
+                href="https://evglab.com"
+                target="_blank"
+                rel="noopener"
+                className="font-medium text-foreground/60 underline underline-offset-2 transition-colors hover:text-foreground"
+              >
+                evglab.com
+              </a>
+            </p>
+          </div>
           <nav aria-label="Rechtliches">
             <ul className="flex items-center gap-6">
               {legalNav.map((item) => (

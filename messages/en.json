@@ -97,7 +97,8 @@
   },
   "Footer": {
     "tagline": "All About Industrial Automation",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "createdBy": "created by"
   },
   "Consent": {
     "title": "Privacy settings",
