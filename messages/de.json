@@ -1,0 +1,92 @@
+{
+  "Nav": {
+    "home": "Home",
+    "automation": "Automation",
+    "retrofit": "Retrofit",
+    "references": "Referenzen",
+    "contact": "Kontakt",
+    "links": "Links",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "Common": {
+    "skipToContent": "Zum Inhalt springen",
+    "languageSwitch": "Sprache wechseln",
+    "german": "Deutsch",
+    "english": "English",
+    "readMore": "Mehr erfahren",
+    "getInTouch": "Kontakt aufnehmen",
+    "callUs": "Anrufen",
+    "callNow": "Direkt anrufen",
+    "ourServices": "Unsere Leistungen",
+    "services": "Leistungen",
+    "process": "Ablauf",
+    "benefits": "Ihre Vorteile",
+    "industries": "Branchen & Einsatzbereiche",
+    "whyUs": "Warum Ingenieurbüro Jungen",
+    "faq": "Häufige Fragen",
+    "faqIntro": "Antworten rund um Industrieautomation, Retrofit und die Zusammenarbeit mit uns."
+  },
+  "Home": {
+    "metaTitle": "Ingenieurbüro Jungen – Industrieautomation & Retrofit",
+    "metaDescription": "Ingenieurbüro Jungen: All About Industrial Automation. Industrieautomation, SPS-Programmierung und Retrofit aus einer Hand – herstellerunabhängig und zuverlässig.",
+    "h1": "All About Industrial Automation",
+    "intro": "Ingenieurbüro Jungen – Ihr Partner für Industrieautomation und Retrofit. Messen Sie uns an Ihren Herausforderungen."
+  },
+  "References": {
+    "metaTitle": "Referenzen",
+    "metaDescription": "Ausgewählte Referenzprojekte aus Industrieautomation und Retrofit des Ingenieurbüro Jungen.",
+    "h1": "Referenzen",
+    "intro": "Ausgewählte Projekte aus Industrieautomation und Retrofit."
+  },
+  "Contact": {
+    "metaTitle": "Kontakt",
+    "metaDescription": "Nehmen Sie Kontakt mit dem Ingenieurbüro Jungen auf – für Industrieautomation, Retrofit und Steuerungstechnik.",
+    "h1": "Kontakt",
+    "intro": "Sprechen Sie mit uns über Ihr Automatisierungs- oder Retrofit-Projekt."
+  },
+  "Links": {
+    "metaTitle": "Links",
+    "metaDescription": "Weiterführende Links und Partner des Ingenieurbüro Jungen.",
+    "h1": "Links",
+    "intro": "Weiterführende Links und Partner."
+  },
+  "Imprint": {
+    "metaTitle": "Impressum",
+    "metaDescription": "Impressum des Ingenieurbüro Jungen.",
+    "h1": "Impressum"
+  },
+  "Privacy": {
+    "metaTitle": "Datenschutzerklärung",
+    "metaDescription": "Datenschutzerklärung des Ingenieurbüro Jungen.",
+    "h1": "Datenschutzerklärung"
+  },
+  "Footer": {
+    "tagline": "All About Industrial Automation",
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "Consent": {
+    "title": "Datenschutz-Einstellungen",
+    "description": "Wir verwenden Cookies und ähnliche Technologien. Notwendige Cookies sind für den Betrieb der Website erforderlich. Andere Kategorien werden nur mit Ihrer Einwilligung aktiviert.",
+    "acceptAll": "Alle akzeptieren",
+    "rejectAll": "Nur notwendige",
+    "save": "Auswahl speichern",
+    "settings": "Einstellungen",
+    "alwaysActive": "Immer aktiv",
+    "necessaryTitle": "Notwendig",
+    "necessaryDesc": "Erforderlich für den Grundbetrieb der Website (z. B. Sicherheit, Spracheinstellung). Diese Cookies können nicht deaktiviert werden.",
+    "analyticsTitle": "Statistik & Analyse",
+    "analyticsDesc": "Hilft uns zu verstehen, wie die Website genutzt wird, um sie zu verbessern (z. B. Google Analytics).",
+    "mapsTitle": "Externe Medien",
+    "mapsDesc": "Lädt eingebettete Inhalte externer Anbieter (z. B. Google Maps).",
+    "more": "Mehr in der",
+    "privacy": "Datenschutzerklärung",
+    "manage": "Cookie-Einstellungen"
+  },
+  "NotFound": {
+    "metaTitle": "Seite nicht gefunden",
+    "h1": "Seite nicht gefunden",
+    "intro": "Die angeforderte Seite existiert nicht.",
+    "back": "Zurück zur Startseite"
+  }
+}

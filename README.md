@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ingenieurbüro Jungen – Website (Next.js)
 
-## Getting Started
+SEO- und KI-optimiertes Web-Grundgerüst für [ib-jungen.de](https://ib-jungen.de) –
+**All About Industrial Automation**.
 
-First, run the development server:
+> Status: Durchstrukturiertes Grundgerüst. Die **visuelle Gestaltung ist bewusst
+> noch nicht umgesetzt** – die Seiten/Komponenten enthalten nur semantisches Markup
+> als Ausgangspunkt für das Design.
+
+## Tech-Stack
+
+- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Tailwind CSS v4** (Styling-Setup vorhanden, Design offen)
+- **next-intl** – Zweisprachigkeit **Deutsch (Standard)** + **Englisch**
+- Deployment-Ziel: **Vercel**
+
+## Schnellstart
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # Produktions-Build
+npm run lint     # ESLint
+npm run typecheck
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Projektstruktur
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    [locale]/              # Sprach-Routing (de = ohne Präfix, en = /en)
+      layout.tsx           # Root-Layout (html, Provider, globales JSON-LD)
+      page.tsx             # Startseite
+      automation/          # Leistungsseite Automation
+      retrofit/            # Leistungsseite Retrofit
+      referenzen/          # Referenzen (en: /references)
+      kontakt/             # Kontakt (en: /contact)
+      links/
+      impressum/           # (en: /imprint)
+      datenschutz/         # (en: /privacy)
+      not-found.tsx        # lokalisierte 404
+    not-found.tsx          # globale 404
+    sitemap.ts             # /sitemap.xml (inkl. hreflang)
+    robots.ts              # /robots.txt
+    manifest.ts            # /manifest.webmanifest
+    globals.css
+  components/
+    layout/                # Header, Footer, LanguageSwitcher (Struktur-Platzhalter)
+    pages/                 # Wiederverwendbare Seiteninhalte (ServicePageContent)
+    seo/JsonLd.tsx         # JSON-LD-Renderer
+  config/site.ts           # ZENTRALE Stammdaten (NAP, SEO-Defaults) -> hier pflegen!
+  content/                 # Content-Layer (services, faq, navigation) DE/EN
+  i18n/                    # next-intl Routing/Navigation/Request
+  lib/seo/                 # metadata-Helper + Schema.org-Bausteine
+  middleware.ts            # i18n-Middleware
+messages/                  # Übersetzungen (de.json, en.json)
+public/llms.txt            # KI-/Antwortmaschinen-Profil (GEO/AEO)
+docs/                      # SEO-Strategie, Keyword-Recherche, KI-Optimierung, Content-Plan
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Wichtigste nächste Schritte
 
-## Learn More
+1. **`src/config/site.ts`** mit echten Unternehmensdaten füllen (alle `TODO`).
+2. **Impressum & Datenschutz** rechtskonform vervollständigen.
+3. **Content** in `src/content/` und `messages/` verfeinern (siehe `docs/`).
+4. **OG-Bild** unter `public/og/default-og.png` (1200×630) anlegen.
+5. **Design** umsetzen (Layout-Komponenten + Seiten sind als Gerüst vorbereitet).
 
-To learn more about Next.js, take a look at the following resources:
+## SEO- & KI-Features (bereits eingebaut)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Pro Seite: dynamische `title`/`description`, **Canonical**, **hreflang** (inkl. `x-default`)
+- **Open Graph** + **Twitter Cards**
+- **Schema.org/JSON-LD**: ProfessionalService/Organization, WebSite, Service, BreadcrumbList, FAQPage
+- Automatische **sitemap.xml** (mit hreflang) und **robots.txt**
+- **llms.txt** für KI-/Antwortmaschinen (GEO/AEO)
+- Saubere, semantische HTML-Struktur + Skip-Link (A11y)
+- Sicherheits-Header (Trust-Signale)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment auf Vercel
 
-## Deploy on Vercel
+1. Repository zu Vercel verbinden (Framework wird automatisch als Next.js erkannt).
+2. Domain `ib-jungen.de` in Vercel hinterlegen; `www` → non-`www` Redirect setzen.
+3. Nach dem Go-Live: Sitemap in der Google Search Console & Bing Webmaster Tools einreichen.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Details siehe [`docs/`](./docs).

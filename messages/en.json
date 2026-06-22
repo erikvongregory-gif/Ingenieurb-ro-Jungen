@@ -1,0 +1,92 @@
+{
+  "Nav": {
+    "home": "Home",
+    "automation": "Automation",
+    "retrofit": "Retrofit",
+    "references": "References",
+    "contact": "Contact",
+    "links": "Links",
+    "imprint": "Imprint",
+    "privacy": "Privacy"
+  },
+  "Common": {
+    "skipToContent": "Skip to content",
+    "languageSwitch": "Switch language",
+    "german": "Deutsch",
+    "english": "English",
+    "readMore": "Learn more",
+    "getInTouch": "Get in touch",
+    "callUs": "Call",
+    "callNow": "Call now",
+    "ourServices": "Our services",
+    "services": "Services",
+    "process": "Process",
+    "benefits": "Your benefits",
+    "industries": "Industries & applications",
+    "whyUs": "Why Ingenieurbüro Jungen",
+    "faq": "Frequently asked questions",
+    "faqIntro": "Answers about industrial automation, retrofit and working with us."
+  },
+  "Home": {
+    "metaTitle": "Ingenieurbüro Jungen – Industrial Automation & Retrofit",
+    "metaDescription": "Ingenieurbüro Jungen: All About Industrial Automation. Industrial automation, PLC programming and retrofit from a single source – vendor-independent and reliable.",
+    "h1": "All About Industrial Automation",
+    "intro": "Ingenieurbüro Jungen – your partner for industrial automation and retrofit. Measure us by your challenges."
+  },
+  "References": {
+    "metaTitle": "References",
+    "metaDescription": "Selected reference projects in industrial automation and retrofit by Ingenieurbüro Jungen.",
+    "h1": "References",
+    "intro": "Selected projects in industrial automation and retrofit."
+  },
+  "Contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Get in touch with Ingenieurbüro Jungen – for industrial automation, retrofit and control technology.",
+    "h1": "Contact",
+    "intro": "Talk to us about your automation or retrofit project."
+  },
+  "Links": {
+    "metaTitle": "Links",
+    "metaDescription": "Further links and partners of Ingenieurbüro Jungen.",
+    "h1": "Links",
+    "intro": "Further links and partners."
+  },
+  "Imprint": {
+    "metaTitle": "Imprint",
+    "metaDescription": "Imprint of Ingenieurbüro Jungen.",
+    "h1": "Imprint"
+  },
+  "Privacy": {
+    "metaTitle": "Privacy Policy",
+    "metaDescription": "Privacy policy of Ingenieurbüro Jungen.",
+    "h1": "Privacy Policy"
+  },
+  "Footer": {
+    "tagline": "All About Industrial Automation",
+    "rights": "All rights reserved."
+  },
+  "Consent": {
+    "title": "Privacy settings",
+    "description": "We use cookies and similar technologies. Necessary cookies are required to operate the website. Other categories are only activated with your consent.",
+    "acceptAll": "Accept all",
+    "rejectAll": "Necessary only",
+    "save": "Save selection",
+    "settings": "Settings",
+    "alwaysActive": "Always active",
+    "necessaryTitle": "Necessary",
+    "necessaryDesc": "Required for the basic operation of the website (e.g. security, language preference). These cookies cannot be disabled.",
+    "analyticsTitle": "Statistics & analytics",
+    "analyticsDesc": "Helps us understand how the website is used in order to improve it (e.g. Google Analytics).",
+    "mapsTitle": "External media",
+    "mapsDesc": "Loads embedded content from external providers (e.g. Google Maps).",
+    "more": "More in the",
+    "privacy": "privacy policy",
+    "manage": "Cookie settings"
+  },
+  "NotFound": {
+    "metaTitle": "Page not found",
+    "h1": "Page not found",
+    "intro": "The requested page does not exist.",
+    "back": "Back to home"
+  }
+}

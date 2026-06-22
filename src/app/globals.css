@@ -1,26 +1,163 @@
 @import "tailwindcss";
 
+/**
+ * THEME-TOKENS (shadcn/ui-kompatibel, Tailwind CSS v4)
+ * ------------------------------------------------------------------
+ * Die Roh-Variablen (--background usw.) werden unten via @theme inline auf
+ * Tailwind-Color-Utilities gemappt (bg-background, text-primary, ring-border …).
+ *
+ * Default ist ein dezentes Industrie-Dark-Theme, weil der Glass-Hero
+ * (pixel-perfect-hero) für dunkle Hintergründe optimiert ist. Über die Klasse
+ * `.light` lässt sich ein helles Theme aktivieren – beim finalen Design frei anpassbar.
+ */
 :root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+
+  --card: #141414;
+  --card-foreground: #ededed;
+
+  --popover: #141414;
+  --popover-foreground: #ededed;
+
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+
+  --secondary: #1c1c1f;
+  --secondary-foreground: #ededed;
+
+  --muted: #171717;
+  --muted-foreground: #a1a1aa;
+
+  --accent: #1c1c1f;
+  --accent-foreground: #ededed;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #262626;
+  --input: #262626;
+  --ring: #2563eb;
+
+  --radius: 0.75rem;
+}
+
+/* Optionales helles Theme (opt-in über class="light" auf <html>). */
+.light {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
+
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f4f4f5;
+  --secondary-foreground: #0a0a0a;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+
+  --accent: #f4f4f5;
+  --accent-foreground: #0a0a0a;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #2563eb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Zusätzlicher Breakpoint, den der Hero nutzt (xs:). */
+  --breakpoint-xs: 30rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/**
+ * RESPONSIVES HOCHSKALIEREN AUF GROSSEN/HOCHAUFLÖSENDEN DISPLAYS
+ * ------------------------------------------------------------------
+ * Fast die gesamte UI (Typografie, Abstände, Gaps, Container-Max-Breiten)
+ * ist in `rem` definiert. Indem wir die Root-Schriftgröße ab großen
+ * Viewports anheben, skaliert alles proportional mit – so wirkt die Seite
+ * auf 2K-/4K-Monitoren nicht winzig, sondern bleibt sauber gefüllt.
+ *
+ * Wichtig: Breakpoints in Media-Queries beziehen sich auf die *initiale*
+ * Root-Größe (16px) und verschieben sich dadurch NICHT. Übliche
+ * Full-HD-Desktops (1920px) bleiben bewusst unverändert.
+ */
+@media (min-width: 2560px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 3200px) {
+  :root {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 3840px) {
+  :root {
+    font-size: 22.5px;
+  }
+}
+
+/* Durchlaufender metallischer Schimmer für die großen Ziffern (Editorial-Liste). */
+@keyframes number-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.number-shimmer {
+  background-size: 200% auto;
+  animation: number-shimmer 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .number-shimmer {
+    animation: none;
+  }
 }

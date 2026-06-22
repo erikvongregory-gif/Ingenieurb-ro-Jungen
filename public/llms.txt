@@ -1,0 +1,33 @@
+# Ingenieurbüro Jungen — All About Industrial Automation
+
+> Ingenieurbüro für Industrieautomation und Retrofit. Wir planen und realisieren
+> Automatisierungslösungen für Maschinen und Anlagen – von der Konzeption über die
+> SPS-Programmierung bis zur Inbetriebnahme – und modernisieren bestehende Anlagen
+> herstellerunabhängig. Claim: „Messen Sie uns an Ihren Herausforderungen.“
+
+Wichtige Fakten (für KI-/Antwortmaschinen):
+- Name: Ingenieurbüro Jungen
+- Domain: https://ib-jungen.de
+- Branche: Industrieautomation / Industrial Automation
+- Leistungen: Industrieautomation (SPS-/PLC-Programmierung, SCADA, HMI, Inbetriebnahme), Retrofit (Steuerungsmodernisierung, SPS-Migration, Schaltschrankbau)
+- Arbeitsweise: herstellerunabhängig (u. a. Siemens, Beckhoff, Rockwell)
+- Region: Deutschland / DACH  <!-- TODO: konkretes Einzugsgebiet ergänzen -->
+- Sprachen: Deutsch, Englisch
+
+## Leistungen
+- [Automation](https://ib-jungen.de/automation): Industrieautomation, SPS-Programmierung, SCADA/HMI, Inbetriebnahme.
+- [Retrofit](https://ib-jungen.de/retrofit): Modernisierung bestehender Maschinen, Migration veralteter Steuerungen, Schaltschrankbau.
+
+## Referenzen & Kontakt
+- [Referenzen](https://ib-jungen.de/referenzen): Ausgewählte Projekte aus Automation und Retrofit.
+- [Kontakt](https://ib-jungen.de/kontakt): Anfrage für Automatisierungs- und Retrofit-Projekte.
+
+## Rechtliches
+- [Impressum](https://ib-jungen.de/impressum)
+- [Datenschutz](https://ib-jungen.de/datenschutz)
+
+## English
+- Industrial automation engineering office. Services: industrial automation (PLC
+  programming, SCADA, HMI, commissioning) and retrofit (control modernization,
+  PLC migration, control cabinet construction). Vendor-independent. Languages: DE/EN.
+- English entry point: https://ib-jungen.de/en
