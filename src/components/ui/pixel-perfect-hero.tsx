@@ -323,7 +323,7 @@ export function PixelHero({
   }, []);
 
   return (
-    <div className="relative w-full min-h-[100dvh] bg-background flex flex-col md:justify-center md:gap-6 pt-24 pb-10 md:py-0 px-4 sm:px-6 overflow-hidden select-none isolate">
+    <div className="relative w-full md:min-h-[100dvh] bg-background flex flex-col md:justify-center md:gap-6 pt-24 pb-16 md:py-0 px-4 sm:px-6 overflow-hidden select-none isolate">
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0%); }
@@ -404,8 +404,8 @@ export function PixelHero({
         </a>
       </div>
 
-      {/* Mobile-only Marquee Block (am unteren Rand verankert) */}
-      <div className="block md:hidden order-4 w-full mt-auto pt-12 pointer-events-auto">
+      {/* Mobile-only Marquee Block */}
+      <div className="block md:hidden order-4 w-full mt-12 pointer-events-auto">
         <div className="mb-4 text-center text-[11px] font-medium uppercase tracking-wider text-muted-foreground/80">
           {brandsLabel}
         </div>
