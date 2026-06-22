@@ -11,8 +11,18 @@
  */
 
 export const siteConfig = {
-  /** Produktions-Domain ohne abschließenden Slash. */
-  url: "https://ib-jungen.de",
+  /**
+   * Basis-URL für Canonical-/OG-/Sitemap-URLs (ohne abschließenden Slash).
+   *
+   * Default ist die finale Produktions-Domain. Solange diese noch nicht auf
+   * Vercel zeigt, kann sie übergangsweise per Umgebungsvariable
+   * `NEXT_PUBLIC_SITE_URL` überschrieben werden (z. B. auf die *.vercel.app-
+   * Domain), damit Sharing-Vorschauen schon vor dem Domain-Umzug funktionieren.
+   * Zum Launch einfach die Variable in Vercel entfernen → fällt auf ib-jungen.de zurück.
+   */
+  url: (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://ib-jungen.de")
+    .trim()
+    .replace(/\/+$/, ""),
 
   /** Weitere vom Inhaber betriebene Domain. */
   altDomain: "all-about-industrial-automation.de",

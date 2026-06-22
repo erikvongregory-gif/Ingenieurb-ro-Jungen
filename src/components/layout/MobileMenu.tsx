@@ -14,41 +14,62 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 const FOCUSABLE =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+// Sanfte "Drawer"-Kurve (wie iOS-Sheets) für ein cleanes Auf-/Zugleiten.
+const EASE = "cubic-bezier(0.32,0.72,0,1)";
+const DURATION = 360;
+
 /**
  * Mobiles Hauptmenü (< lg): Hamburger-Button öffnet einen Glass-Drawer mit
  * voller Navigation, Direktkontakt, CTA und Sprachumschalter.
  *
+ * - sauberes Auf- und Zugleiten über echte Transitions (beide Richtungen)
+ * - gestaffeltes Einblenden der Navigationspunkte
  * - schließt automatisch bei Routenwechsel, Escape und Backdrop-Klick
- * - Scroll-Lock, Focus-Trap und Fokus-Rückgabe wie im Kontaktmodal
- * - respektiert prefers-reduced-motion
+ * - Scroll-Lock, Focus-Trap und Fokus-Rückgabe; respektiert reduzierte Bewegung
  */
 export function MobileMenu({ locale }: { locale: string }) {
   const t = useTranslations("Nav");
   const tc = useTranslations("Common");
   const pathname = usePathname();
 
-  const [mounted, setMounted] = useState(false);
-  const [open, setOpen] = useState(false);
+  // `render` = im DOM, `show` = sichtbarer (eingeblendeter) Zustand.
+  const [render, setRender] = useState(false);
+  const [show, setShow] = useState(false);
 
   const panelRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeTimer = useRef<number>(0);
 
-  useEffect(() => setMounted(true), []);
-
-  const close = useCallback(() => {
-    setOpen(false);
-    triggerRef.current?.focus?.();
+  const open = useCallback(() => {
+    window.clearTimeout(closeTimer.current);
+    setRender(true);
   }, []);
 
-  // Bei Routenwechsel automatisch schließen.
+  const close = useCallback(() => {
+    setShow(false);
+    closeTimer.current = window.setTimeout(() => {
+      setRender(false);
+      triggerRef.current?.focus?.();
+    }, DURATION);
+  }, []);
+
+  // Nach dem Mounten im nächsten Frame einblenden -> Transition läuft sauber an.
   useEffect(() => {
-    setOpen(false);
+    if (!render) return;
+    const raf = requestAnimationFrame(() => setShow(true));
+    return () => cancelAnimationFrame(raf);
+  }, [render]);
+
+  // Bei Routenwechsel schließen (ohne Animation, Seite wechselt ohnehin).
+  useEffect(() => {
+    setShow(false);
+    setRender(false);
   }, [pathname]);
 
   // Scroll-Lock + Erstfokus, solange offen.
   useEffect(() => {
-    if (!open) return;
+    if (!render) return;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const raf = requestAnimationFrame(() => closeBtnRef.current?.focus());
@@ -56,7 +77,9 @@ export function MobileMenu({ locale }: { locale: string }) {
       document.body.style.overflow = prevOverflow;
       cancelAnimationFrame(raf);
     };
-  }, [open]);
+  }, [render]);
+
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
 
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -93,16 +116,16 @@ export function MobileMenu({ locale }: { locale: string }) {
       <button
         ref={triggerRef}
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={open}
         aria-label={tc("openMenu")}
-        aria-expanded={open}
+        aria-expanded={render}
         aria-haspopup="dialog"
         className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-card/40 text-foreground/80 transition-colors hover:text-foreground lg:hidden"
       >
         <Menu className="h-5 w-5" />
       </button>
 
-      {mounted && open
+      {render
         ? createPortal(
             <div
               className="fixed inset-0 z-[80] lg:hidden"
@@ -111,30 +134,30 @@ export function MobileMenu({ locale }: { locale: string }) {
               aria-label={tc("navigation")}
               onKeyDown={onKeyDown}
             >
-              <style>{`
-                @keyframes mmFade { from { opacity: 0 } to { opacity: 1 } }
-                @keyframes mmSlide {
-                  from { opacity: 0; transform: translateX(24px) }
-                  to { opacity: 1; transform: translateX(0) }
-                }
-                @media (prefers-reduced-motion: reduce) {
-                  .mm-fade, .mm-slide { animation: none !important }
-                }
-              `}</style>
-
               {/* Backdrop */}
               <button
                 type="button"
                 aria-label={tc("closeMenu")}
                 tabIndex={-1}
                 onClick={close}
-                className="mm-fade absolute inset-0 cursor-default bg-black/60 backdrop-blur-sm [animation:mmFade_200ms_ease-out]"
+                style={{ transitionDuration: `${DURATION}ms` }}
+                className={cn(
+                  "absolute inset-0 cursor-default bg-black/60 backdrop-blur-sm transition-opacity ease-out motion-reduce:transition-none",
+                  show ? "opacity-100" : "opacity-0",
+                )}
               />
 
               {/* Drawer */}
               <div
                 ref={panelRef}
-                className="mm-slide absolute right-0 top-0 flex h-[100dvh] w-[min(88vw,360px)] flex-col border-l border-border/60 bg-gradient-to-b from-card/95 to-card shadow-[0_8px_60px_rgba(0,0,0,0.6)] backdrop-blur-xl [animation:mmSlide_260ms_cubic-bezier(0.16,1,0.3,1)]"
+                style={{
+                  transitionDuration: `${DURATION}ms`,
+                  transitionTimingFunction: EASE,
+                }}
+                className={cn(
+                  "absolute right-0 top-0 flex h-[100dvh] w-[min(86vw,340px)] flex-col border-l border-border/60 bg-gradient-to-b from-card/95 to-card shadow-[0_8px_60px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-transform will-change-transform motion-reduce:transition-none",
+                  show ? "translate-x-0" : "translate-x-full",
+                )}
               >
                 {/* Kopf */}
                 <div className="flex items-center justify-between border-b border-border/40 px-5 py-4">
@@ -158,7 +181,7 @@ export function MobileMenu({ locale }: { locale: string }) {
                   className="flex-1 overflow-y-auto px-3 py-4"
                 >
                   <ul className="flex flex-col gap-1">
-                    {mainNav.map((item) => {
+                    {mainNav.map((item, index) => {
                       const active = isActive(item.pathname);
                       return (
                         <li key={item.pathname}>
@@ -166,8 +189,14 @@ export function MobileMenu({ locale }: { locale: string }) {
                             href={item.pathname}
                             onClick={close}
                             aria-current={active ? "page" : undefined}
+                            style={{
+                              transitionDelay: show ? `${90 + index * 45}ms` : "0ms",
+                            }}
                             className={cn(
-                              "group flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-colors active:scale-[0.99]",
+                              "group flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-[color,background-color,opacity,transform] duration-300 ease-out active:scale-[0.99] motion-reduce:transition-none",
+                              show
+                                ? "translate-x-0 opacity-100"
+                                : "translate-x-3 opacity-0",
                               active
                                 ? "bg-primary/10 text-foreground ring-1 ring-primary/25"
                                 : "text-foreground/75 hover:bg-foreground/[0.04] hover:text-foreground",
