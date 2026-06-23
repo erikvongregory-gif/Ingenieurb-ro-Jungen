@@ -1,7 +1,12 @@
 import type { Locale } from "@/i18n/routing";
 import type { FaqItem } from "./types";
+import { getCmsDocument } from "@/lib/cms/repository";
+import { CMS_KEYS } from "@/lib/cms/keys";
 
 export type { FaqItem };
+
+/** Im CMS wird die FAQ-Liste als Objekt { items: [...] } gespeichert. */
+export type FaqDocument = { items: FaqItem[] };
 
 /**
  * GLOBALE FAQ (AEO / GEO-optimiert)
@@ -79,6 +84,7 @@ export const faq: Record<Locale, FaqItem[]> = {
   ],
 };
 
-export function getFaq(locale: Locale): FaqItem[] {
-  return faq[locale];
+export async function getFaq(locale: Locale): Promise<FaqItem[]> {
+  const doc = await getCmsDocument<FaqDocument>(CMS_KEYS.faq, locale);
+  return doc?.items ?? faq[locale];
 }

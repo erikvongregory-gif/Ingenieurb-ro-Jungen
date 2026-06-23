@@ -17,9 +17,10 @@ import { Reveal } from "@/components/ui/reveal";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { AnimatedUnderline } from "@/components/ui/animated-underline";
 import { faqSchema, personSchema } from "@/lib/seo/structured-data";
-import { getServices } from "@/content/services";
-import { getHome, heroBrands } from "@/content/home";
+import { getServices, type LocalizedService } from "@/content/services";
+import { getHome, heroBrands, type HomeContent as HomeContentData } from "@/content/home";
 import { getFaq } from "@/content/faq";
+import type { FaqItem } from "@/content/types";
 import type { Locale } from "@/i18n/routing";
 
 type PageProps = { params: Promise<{ locale: Locale }> };
@@ -49,15 +50,34 @@ export async function generateMetadata({
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <HomeContent locale={locale} />;
+  const [content, services, faq] = await Promise.all([
+    getHome(locale),
+    getServices(locale),
+    getFaq(locale),
+  ]);
+  return (
+    <HomeContent
+      locale={locale}
+      content={content}
+      services={services}
+      faq={faq}
+    />
+  );
 }
 
-function HomeContent({ locale }: { locale: Locale }) {
+function HomeContent({
+  locale,
+  content,
+  services,
+  faq,
+}: {
+  locale: Locale;
+  content: HomeContentData;
+  services: LocalizedService[];
+  faq: FaqItem[];
+}) {
   const tc = useTranslations("Common");
   const tn = useTranslations("Nav");
-  const content = getHome(locale);
-  const services = getServices(locale);
-  const faq = getFaq(locale);
 
   const kontaktHref = getPathname({ href: "/kontakt", locale });
   const referenzenHref = getPathname({ href: "/referenzen", locale });

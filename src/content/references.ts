@@ -1,4 +1,6 @@
 import type { Locale } from "@/i18n/routing";
+import { getCmsDocumentOr } from "@/lib/cms/repository";
+import { CMS_KEYS } from "@/lib/cms/keys";
 
 /**
  * Referenzprojekte (Case Studies) – Inhalt vom Design getrennt.
@@ -178,6 +180,12 @@ export const references: Record<Locale, ReferencesContent> = {
   },
 };
 
-export function getReferences(locale: Locale): ReferencesContent {
-  return references[locale];
+export async function getReferences(
+  locale: Locale,
+): Promise<ReferencesContent> {
+  return getCmsDocumentOr<ReferencesContent>(
+    CMS_KEYS.references,
+    locale,
+    references[locale],
+  );
 }

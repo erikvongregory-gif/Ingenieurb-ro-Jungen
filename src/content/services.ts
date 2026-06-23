@@ -1,5 +1,14 @@
 import type { Locale, AppPathname } from "@/i18n/routing";
 import type { FaqItem, RichSection } from "./types";
+import { getCmsDocument } from "@/lib/cms/repository";
+import { CMS_KEYS } from "@/lib/cms/keys";
+
+/** CMS-Key je Service-Id. */
+function serviceKey(id: string): string {
+  if (id === "automation") return CMS_KEYS.serviceAutomation;
+  if (id === "retrofit") return CMS_KEYS.serviceRetrofit;
+  return `service.${id}`;
+}
 
 /**
  * STRUKTURIERTE LEISTUNGS-DATEN (Content-Layer)
@@ -539,13 +548,23 @@ export const services: ServiceMap = {
   ],
 };
 
-export function getServices(locale: Locale): LocalizedService[] {
-  return services[locale];
+export async function getServices(locale: Locale): Promise<LocalizedService[]> {
+  return Promise.all(
+    services[locale].map(async (fallback) => {
+      const doc = await getCmsDocument<LocalizedService>(
+        serviceKey(fallback.id),
+        locale,
+      );
+      return doc ?? fallback;
+    }),
+  );
 }
 
-export function getService(
+export async function getService(
   locale: Locale,
   id: string,
-): LocalizedService | undefined {
-  return services[locale].find((service) => service.id === id);
+): Promise<LocalizedService | undefined> {
+  const fallback = services[locale].find((service) => service.id === id);
+  const doc = await getCmsDocument<LocalizedService>(serviceKey(id), locale);
+  return doc ?? fallback;
 }

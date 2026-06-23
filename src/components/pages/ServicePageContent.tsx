@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
-import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
-import { getService } from "@/content/services";
+import type { LocalizedService } from "@/content/services";
 import { getPathname } from "@/i18n/navigation";
 import { absoluteUrl, siteConfig } from "@/config/site";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -31,14 +30,12 @@ import type { Locale } from "@/i18n/routing";
  */
 export function ServicePageContent({
   locale,
-  serviceId,
+  service,
 }: {
   locale: Locale;
-  serviceId: string;
+  service: LocalizedService;
 }) {
   const tc = useTranslations("Common");
-  const service = getService(locale, serviceId);
-  if (!service) notFound();
 
   const url = absoluteUrl(getPathname({ href: service.pathname, locale }));
   const homeUrl = absoluteUrl(getPathname({ href: "/", locale }));

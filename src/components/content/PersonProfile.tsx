@@ -13,8 +13,8 @@ const { name, image, linkedin } = siteConfig.responsiblePerson;
  * Große "Ihr Ansprechpartner"-Sektion für die Startseite:
  * Porträt + Vorstellungstext + CTA im dunklen Glass-Look.
  */
-export function PersonSection({ locale }: { locale: Locale }) {
-  const p = getPerson(locale);
+export async function PersonSection({ locale }: { locale: Locale }) {
+  const p = await getPerson(locale);
   return (
     <Section className="border-t border-border/40">
       <Container>
@@ -69,8 +69,8 @@ export function PersonSection({ locale }: { locale: Locale }) {
 /**
  * Kompakte Ansprechpartner-Card (z. B. für die Kontaktseite).
  */
-export function PersonCard({ locale }: { locale: Locale }) {
-  const p = getPerson(locale);
+export async function PersonCard({ locale }: { locale: Locale }) {
+  const p = await getPerson(locale);
   return (
     <Card className="group flex items-center gap-5 p-6 transition duration-300 hover:ring-primary/30">
       <Image

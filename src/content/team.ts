@@ -1,4 +1,6 @@
 import type { Locale } from "@/i18n/routing";
+import { getCmsDocumentOr } from "@/lib/cms/repository";
+import { CMS_KEYS } from "@/lib/cms/keys";
 
 /**
  * Inhalte für die "Ihr Ansprechpartner"-Sektion (Inhaber).
@@ -24,7 +26,7 @@ export type PersonContent = {
   linkedinLabel: string;
 };
 
-const person: Record<Locale, PersonContent> = {
+export const person: Record<Locale, PersonContent> = {
   de: {
     eyebrow: "Ihr Ansprechpartner",
     heading: "Persönlich für Ihr Projekt verantwortlich",
@@ -49,6 +51,6 @@ const person: Record<Locale, PersonContent> = {
   },
 };
 
-export function getPerson(locale: Locale): PersonContent {
-  return person[locale];
+export async function getPerson(locale: Locale): Promise<PersonContent> {
+  return getCmsDocumentOr<PersonContent>(CMS_KEYS.person, locale, person[locale]);
 }

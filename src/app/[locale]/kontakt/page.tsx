@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ContactButton } from "@/components/contact/ContactButton";
 import { Section, Container, Card } from "@/components/ui/section";
 import { personSchema } from "@/lib/seo/structured-data";
-import { contactPage } from "@/content/pages";
+import { getContactPage } from "@/content/pages";
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 
@@ -31,7 +31,7 @@ export async function generateMetadata({
 export default async function ContactPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const content = contactPage[locale];
+  const content = await getContactPage(locale);
   const tm = await getTranslations({ locale, namespace: "ContactModal" });
   return (
     <article>

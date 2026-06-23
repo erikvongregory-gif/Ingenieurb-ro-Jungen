@@ -1,5 +1,7 @@
 import type { Locale } from "@/i18n/routing";
 import type { RichSection } from "./types";
+import { getCmsDocumentOr } from "@/lib/cms/repository";
+import { CMS_KEYS } from "@/lib/cms/keys";
 
 /**
  * SEO-TEXTE für einfache Seiten (Referenzen, Kontakt).
@@ -70,3 +72,23 @@ export const contactPage: Record<Locale, SimplePageContent> = {
     ],
   },
 };
+
+export async function getReferencesPage(
+  locale: Locale,
+): Promise<SimplePageContent> {
+  return getCmsDocumentOr<SimplePageContent>(
+    CMS_KEYS.pageReferences,
+    locale,
+    referencesPage[locale],
+  );
+}
+
+export async function getContactPage(
+  locale: Locale,
+): Promise<SimplePageContent> {
+  return getCmsDocumentOr<SimplePageContent>(
+    CMS_KEYS.pageContact,
+    locale,
+    contactPage[locale],
+  );
+}

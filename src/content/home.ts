@@ -1,5 +1,7 @@
 import type { Locale } from "@/i18n/routing";
 import type { RichSection } from "./types";
+import { getCmsDocumentOr } from "@/lib/cms/repository";
+import { CMS_KEYS } from "@/lib/cms/keys";
 
 /**
  * STARTSEITEN-CONTENT (SEO-optimiert)
@@ -192,6 +194,6 @@ export const home: Record<Locale, HomeContent> = {
   },
 };
 
-export function getHome(locale: Locale): HomeContent {
-  return home[locale];
+export async function getHome(locale: Locale): Promise<HomeContent> {
+  return getCmsDocumentOr<HomeContent>(CMS_KEYS.home, locale, home[locale]);
 }

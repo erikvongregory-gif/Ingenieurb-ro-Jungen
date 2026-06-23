@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { getService } from "@/content/services";
@@ -11,7 +12,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const service = getService(locale, "retrofit");
+  const service = await getService(locale, "retrofit");
   return buildMetadata({
     locale,
     pathname: "/retrofit",
@@ -24,5 +25,7 @@ export async function generateMetadata({
 export default async function RetrofitPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <ServicePageContent locale={locale} serviceId="retrofit" />;
+  const service = await getService(locale, "retrofit");
+  if (!service) notFound();
+  return <ServicePageContent locale={locale} service={service} />;
 }

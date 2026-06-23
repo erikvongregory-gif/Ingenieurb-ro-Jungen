@@ -12,7 +12,7 @@ import {
   Card,
 } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
-import { referencesPage } from "@/content/pages";
+import { getReferencesPage } from "@/content/pages";
 import { getReferences } from "@/content/references";
 import type { Locale } from "@/i18n/routing";
 
@@ -41,8 +41,10 @@ export async function generateMetadata({
 export default async function ReferencesPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const content = referencesPage[locale];
-  const refs = getReferences(locale);
+  const [content, refs] = await Promise.all([
+    getReferencesPage(locale),
+    getReferences(locale),
+  ]);
 
   const projectsSchema = {
     "@context": "https://schema.org",
