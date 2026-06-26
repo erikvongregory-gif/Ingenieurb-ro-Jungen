@@ -88,15 +88,15 @@ export const siteConfig = {
   /** Standard-Sharing-Bild (Open Graph / Twitter). Pfad relativ zu /public. */
   ogImage: "/og/default-og.png", // TODO: Bild unter public/og/default-og.png anlegen (1200x630)
 
-  /** Theme-Farbe (Browser-UI / manifest). */
-  themeColor: "#0a0a0a", // TODO: an finales Design anpassen
+  /** Theme-Farbe (Browser-UI / manifest) – Graphit-Hintergrund der Seite. */
+  themeColor: "#0c0e12",
 
   /** Verantwortliche Person für Impressum / E-E-A-T (Author-Entität). */
   responsiblePerson: {
     name: "Frank Jungen",
     jobTitle: "Inhaber & Dipl.-Ing.",
     /** Porträt (relativ zu /public). */
-    image: "/team/frank-jungen.png",
+    image: "/team/frank-jungen-2026.png",
     /** Persönliches LinkedIn-Profil (Person-Schema sameAs + Button). */
     linkedin: "https://www.linkedin.com/in/frank-jungen-15302664/",
   },

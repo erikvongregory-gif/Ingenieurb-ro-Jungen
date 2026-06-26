@@ -6,71 +6,78 @@
  * Die Roh-Variablen (--background usw.) werden unten via @theme inline auf
  * Tailwind-Color-Utilities gemappt (bg-background, text-primary, ring-border …).
  *
- * Default ist ein dezentes Industrie-Dark-Theme, weil der Glass-Hero
- * (pixel-perfect-hero) für dunkle Hintergründe optimiert ist. Über die Klasse
- * `.light` lässt sich ein helles Theme aktivieren – beim finalen Design frei anpassbar.
+ * Visuelle Identität: „Engineered Graphite + Signal-Teal".
+ *  - Neutrals: kühles Graphit (kein reines Schwarz) – konsistent kühl getönt.
+ *  - Akzent: Signal-Teal (#2aa6bd) – abgeleitet vom Marken-Favicon (#116275,
+ *    weiße Signal-Kurve). Technisch/instrumentiert, distinktiv, EIN Akzent über
+ *    die ganze Seite. Für AA wird auf Teal-Buttons dunkler Text gesetzt.
+ *
+ * Default ist das Industrie-Dark-Theme (der Glass-Hero ist dafür optimiert).
+ * Über die Klasse `.light` ist ein helles Theme opt-in vorbereitet.
  */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0c0e12;
+  --foreground: #e9ecf1;
 
-  --card: #141414;
-  --card-foreground: #ededed;
+  --card: #15181f;
+  --card-foreground: #e9ecf1;
 
-  --popover: #141414;
-  --popover-foreground: #ededed;
+  --popover: #15181f;
+  --popover-foreground: #e9ecf1;
 
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
+  --primary: #2aa6bd;
+  --primary-foreground: #04222a;
 
-  --secondary: #1c1c1f;
-  --secondary-foreground: #ededed;
+  --secondary: #1b1f27;
+  --secondary-foreground: #e9ecf1;
 
-  --muted: #171717;
-  --muted-foreground: #a1a1aa;
+  --muted: #161a21;
+  --muted-foreground: #9aa0ac;
 
-  --accent: #1c1c1f;
-  --accent-foreground: #ededed;
+  --accent: #1b1f27;
+  --accent-foreground: #e9ecf1;
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --border: #262626;
-  --input: #262626;
-  --ring: #2563eb;
+  --border: #272c36;
+  --input: #272c36;
+  --ring: #2aa6bd;
 
   --radius: 0.75rem;
 }
 
-/* Optionales helles Theme (opt-in über class="light" auf <html>). */
+/* Optionales helles Theme (opt-in über class="light" auf <html>).
+   Akzent in Light bewusst als tieferes Teal, damit Text/Links/Eyebrows
+   die WCAG-AA-Kontrastschwelle auf hellem Grund halten. */
 .light {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #f7f8fa;
+  --foreground: #15181f;
 
   --card: #ffffff;
-  --card-foreground: #0a0a0a;
+  --card-foreground: #15181f;
 
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+  --popover-foreground: #15181f;
 
-  --primary: #2563eb;
+  --primary: #0e7d92;
   --primary-foreground: #ffffff;
 
-  --secondary: #f4f4f5;
-  --secondary-foreground: #0a0a0a;
+  --secondary: #eef0f4;
+  --secondary-foreground: #15181f;
 
-  --muted: #f4f4f5;
-  --muted-foreground: #52525b;
+  --muted: #eef0f4;
+  --muted-foreground: #55606f;
 
-  --accent: #f4f4f5;
-  --accent-foreground: #0a0a0a;
+  --accent: #eef0f4;
+  --accent-foreground: #15181f;
 
-  --destructive: #ef4444;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
 
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #2563eb;
+  --border: #d9dde4;
+  --input: #d9dde4;
+  --ring: #0e7d92;
 }
 
 @theme inline {
@@ -188,7 +195,7 @@ body {
     transition: filter 450ms ease, transform 200ms ease;
   }
   .spotlight-card[data-active="true"] {
-    filter: drop-shadow(0 12px 28px rgba(37, 99, 235, 0.28))
+    filter: drop-shadow(0 12px 28px rgba(42, 166, 189, 0.30))
       drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
   }
   .tap-press:active {

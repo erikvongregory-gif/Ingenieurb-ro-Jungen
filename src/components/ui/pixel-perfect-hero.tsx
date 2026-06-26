@@ -60,6 +60,10 @@ type Pixel = {
   isIdle: boolean;
   isReverse: boolean;
   isShimmer: boolean;
+  // 3D-Tiefe (0 = hinten/fern, 1 = vorne/nah) + aktueller Parallax-Versatz.
+  depth: number;
+  ox: number;
+  oy: number;
   draw: () => void;
   appear: () => void;
   disappear: () => void;
@@ -75,6 +79,7 @@ function createPixel(
   baseSpeed: number,
   delay: number,
   fill: { current: string | null },
+  depth: number,
 ): Pixel {
   const rand = (min: number, max: number) => Math.random() * (max - min) + min;
 
@@ -95,13 +100,17 @@ function createPixel(
     isIdle: false,
     isReverse: false,
     isShimmer: false,
+    depth,
+    ox: 0,
+    oy: 0,
     draw() {
       const offset = p.maxSizeInt * 0.5 - p.size * 0.5;
       if (fill.current !== p.color) {
         ctx.fillStyle = p.color;
         fill.current = p.color;
       }
-      ctx.fillRect(p.x + offset, p.y + offset, p.size, p.size);
+      // ox/oy = Parallax-Versatz (nur im interaktiven 3D-Modus aktiv).
+      ctx.fillRect(p.x + offset + p.ox, p.y + offset + p.oy, p.size, p.size);
     },
     appear() {
       p.isIdle = false;
@@ -139,9 +148,22 @@ type PixelCanvasProps = {
   colors: string[];
   gap?: number;
   speed?: number;
+  /**
+   * Interaktiver Cursor-Modus: ein weicher Pixel-Cluster wächst rund um den
+   * Zeiger und „folgt" ihm, der Rest bleibt ein dezentes Grundraster.
+   */
+  interactive?: boolean;
+  /** Einflussradius des Cursors in CSS-Pixeln (nur bei interactive). */
+  cursorRadius?: number;
 };
 
-function PixelCanvas({ colors, gap = 5, speed = 30 }: PixelCanvasProps) {
+export function PixelCanvas({
+  colors,
+  gap = 5,
+  speed = 30,
+  interactive = false,
+  cursorRadius = 140,
+}: PixelCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const pixelsRef = useRef<Pixel[]>([]);
@@ -149,6 +171,9 @@ function PixelCanvas({ colors, gap = 5, speed = 30 }: PixelCanvasProps) {
   const lastFrameRef = useRef(0);
   const reducedMotionRef = useRef(false);
   const fillRef = useRef<{ current: string | null }>({ current: null });
+  // Cursorposition (relativ zum Canvas). Bewusst als Ref, nicht als State:
+  // pro Frame in der rAF-Schleife gelesen, ohne React-Re-Render.
+  const mouseRef = useRef({ x: -9999, y: -9999, active: false });
 
   const init = useCallback(() => {
     const canvas = canvasRef.current;
@@ -179,8 +204,20 @@ function PixelCanvas({ colors, gap = 5, speed = 30 }: PixelCanvasProps) {
         const delay = reducedMotionRef.current
           ? 0
           : Math.sqrt(dx * dx + dy * dy) * 0.65;
+        // Zufällige Tiefe pro Pixel -> Parallaxe + Größen-/Helligkeitsstaffelung.
+        const depth = Math.random();
         pixels.push(
-          createPixel(ctx, canvas, x, y, color, effectiveSpeed, delay, fillRef.current),
+          createPixel(
+            ctx,
+            canvas,
+            x,
+            y,
+            color,
+            effectiveSpeed,
+            delay,
+            fillRef.current,
+            depth,
+          ),
         );
       }
     }
@@ -221,11 +258,99 @@ function PixelCanvas({ colors, gap = 5, speed = 30 }: PixelCanvasProps) {
     animationRef.current = requestAnimationFrame(loop);
   }, []);
 
+  // Persistente Schleife für den Cursor-Modus: jede Pixelgröße strebt zu einem
+  // Zielwert, der mit der Nähe zum Cursor wächst. Dadurch entsteht ein weicher,
+  // dem Zeiger folgender Cluster über einem dezenten Grundraster.
+  const animateInteractive = useCallback(() => {
+    cancelAnimationFrame(animationRef.current);
+    const frameInterval = 1000 / 60;
+    const radius = cursorRadius;
+    const r2 = radius * radius;
+
+    const loop = () => {
+      animationRef.current = requestAnimationFrame(loop);
+
+      const now = performance.now();
+      const elapsed = now - lastFrameRef.current;
+      if (elapsed < frameInterval) return;
+      lastFrameRef.current = now - (elapsed % frameInterval);
+
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext("2d");
+      if (!canvas || !ctx) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      fillRef.current.current = null;
+
+      const m = mouseRef.current;
+      const pixels = pixelsRef.current;
+      const t = now * 0.001; // Sekunden, für Zeit-basierte Lebendigkeit
+
+      // Normalisierte Cursorablage von der Canvas-Mitte (-1..1) für die Parallaxe.
+      // Ohne Cursor wiegt sich das Feld langsam von selbst -> nie eingefroren.
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const nx = m.active && cx > 0 ? (m.x - cx) / cx : Math.sin(t * 0.28) * 0.18;
+      const ny = m.active && cy > 0 ? (m.y - cy) / cy : Math.cos(t * 0.22) * 0.14;
+      const maxShift = 16; // maximaler Parallax-Versatz (vordere Ebene) in px
+
+      for (const p of pixels) {
+        // 3D: tiefere (nähere) Pixel sind größer/heller und parallaxen stärker.
+        const depthScale = 0.55 + p.depth * 1.0;
+
+        // Parallax-Ziel: vordere Ebenen wandern entgegen der Cursorbewegung.
+        const tox = -nx * p.depth * maxShift;
+        const toy = -ny * p.depth * maxShift;
+        p.ox += (tox - p.ox) * 0.08;
+        p.oy += (toy - p.oy) * 0.08;
+
+        // Dauerhaftes, sanftes Funkeln/Atmen (Wellen über das Feld), damit das
+        // Raster auch bei stillem Cursor lebendig bleibt. Phase aus Position.
+        const phase = p.x * 0.012 + p.y * 0.018;
+        const twinkle = 0.5 + 0.5 * Math.sin(t * (0.9 + p.depth * 0.6) + phase);
+
+        // Grundraster fein sichtbar; nahe dem Cursor wächst es zur maxSize.
+        const base = p.minSize * (0.6 + p.depth * 0.7) + twinkle * 0.4;
+        let target = base;
+        let near = 0;
+        if (m.active) {
+          const dx = p.x - m.x;
+          const dy = p.y - m.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < r2) {
+            near = 1 - Math.sqrt(d2) / radius;
+            target = base + near * (p.maxSize * depthScale - base);
+          }
+        }
+        if (p.size < target) {
+          p.size = Math.min(target, p.size + p.sizeStep);
+        } else if (p.size > target) {
+          p.size = Math.max(target, p.size - 0.08);
+        }
+
+        if (p.size > 0.02) {
+          // Helligkeit aus Tiefe + Funkeln + Cursornähe -> plastisch & lebendig.
+          ctx.globalAlpha = Math.min(
+            1,
+            0.22 + p.depth * 0.45 + twinkle * 0.18 + near * 0.35,
+          );
+          p.draw();
+        }
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    animationRef.current = requestAnimationFrame(loop);
+  }, [cursorRadius]);
+
   useEffect(() => {
     reducedMotionRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
     init();
+
+    const useCursor = interactive && !reducedMotionRef.current;
+    const start = () => (useCursor ? animateInteractive() : animate("appear"));
 
     const resizeObserver = new ResizeObserver(() => init());
     if (wrapRef.current) resizeObserver.observe(wrapRef.current);
@@ -238,7 +363,7 @@ function PixelCanvas({ colors, gap = 5, speed = 30 }: PixelCanvasProps) {
         const entry = entries[0];
         if (!entry) return;
         if (entry.isIntersecting) {
-          animate("appear");
+          start();
         } else {
           cancelAnimationFrame(animationRef.current);
         }
@@ -247,12 +372,37 @@ function PixelCanvas({ colors, gap = 5, speed = 30 }: PixelCanvasProps) {
     );
     if (wrap) io.observe(wrap);
 
+    // Cursor verfolgen (nur im interaktiven Modus, ohne reduzierte Bewegung).
+    const onMove = (e: PointerEvent) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        active: true,
+      };
+    };
+    const onLeave = () => {
+      mouseRef.current.active = false;
+    };
+    if (useCursor) {
+      window.addEventListener("pointermove", onMove, { passive: true });
+      document.addEventListener("mouseleave", onLeave);
+      window.addEventListener("blur", onLeave);
+    }
+
     return () => {
       resizeObserver.disconnect();
       io.disconnect();
       cancelAnimationFrame(animationRef.current);
+      if (useCursor) {
+        window.removeEventListener("pointermove", onMove);
+        document.removeEventListener("mouseleave", onLeave);
+        window.removeEventListener("blur", onLeave);
+      }
     };
-  }, [init, animate]);
+  }, [init, animate, animateInteractive, interactive]);
 
   return (
     <div ref={wrapRef} className="absolute inset-0 overflow-hidden">

@@ -130,7 +130,7 @@ export function ServicePageContent({
                     <AnimatedNumber
                       value={index + 1}
                       delay={index * 110}
-                      className="number-shimmer inline-block bg-gradient-to-r from-primary/60 via-foreground/90 to-primary/60 bg-clip-text font-sans font-extrabold tabular-nums tracking-tighter text-3xl text-transparent transition-[transform,filter] duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.45)]"
+                      className="number-shimmer inline-block bg-gradient-to-r from-primary/60 via-foreground/90 to-primary/60 bg-clip-text font-sans font-extrabold tabular-nums tracking-tighter text-3xl text-transparent transition-[transform,filter] duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_rgba(42,166,189,0.5)]"
                     />
                     <h3 className="mt-4 font-sans font-bold tracking-tight text-foreground text-lg">
                       {step.step}

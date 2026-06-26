@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 /**
  * Handgezeichneter, leicht gebogener Unterstrich ("animated underline" /
  * "line draw"): Sobald der umschlossene Text in den Viewport scrollt, wird nach
- * kurzer Verzögerung eine blaue, geschwungene Linie von links nach rechts
- * darunter gezeichnet (SVG-Pfad via stroke-dashoffset).
+ * kurzer Verzögerung eine geschwungene Akzent-Linie (Signal-Teal) von links
+ * nach rechts darunter gezeichnet (SVG-Pfad via stroke-dashoffset).
  *
  * - Kein Layout-Shift (Linie liegt absolut unter dem Text).
  * - Respektiert `prefers-reduced-motion` (Linie erscheint ohne Animation).

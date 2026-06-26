@@ -8,18 +8,18 @@ import { buildMetadata } from "@/lib/seo/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { RichSections } from "@/components/content/RichSections";
 import { PersonSection } from "@/components/content/PersonProfile";
-import { PixelHero } from "@/components/ui/pixel-perfect-hero";
+import { HomeHero } from "@/components/ui/home-hero";
 import { FaqMonochrome } from "@/components/ui/faq-monochrome";
-import { Section, Container, Eyebrow, SectionHeading, Card } from "@/components/ui/section";
+import { Section, Container, SectionHeading } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ContactButton } from "@/components/contact/ContactButton";
 import { Reveal } from "@/components/ui/reveal";
-import { AnimatedNumber } from "@/components/ui/animated-number";
 import { AnimatedUnderline } from "@/components/ui/animated-underline";
 import { faqSchema, personSchema } from "@/lib/seo/structured-data";
 import { getServices, type LocalizedService } from "@/content/services";
 import { getHome, heroBrands, type HomeContent as HomeContentData } from "@/content/home";
 import { getFaq } from "@/content/faq";
+import { cn } from "@/lib/utils";
 import type { FaqItem } from "@/content/types";
 import type { Locale } from "@/i18n/routing";
 
@@ -79,7 +79,6 @@ function HomeContent({
   const tc = useTranslations("Common");
   const tn = useTranslations("Nav");
 
-  const kontaktHref = getPathname({ href: "/kontakt", locale });
   const referenzenHref = getPathname({ href: "/referenzen", locale });
 
   return (
@@ -87,68 +86,69 @@ function HomeContent({
       <JsonLd data={faqSchema(faq)} />
       <JsonLd data={personSchema(locale)} />
 
-      {/* Hero (enthält die H1 der Seite). */}
-      <PixelHero
+      {/* Hero – minimalistisch / editorial (enthält die H1). */}
+      <HomeHero
+        eyebrow={content.eyebrow}
         word1={content.heroWord1}
         word2={content.heroWord2}
-        description={content.lead}
+        lead={content.lead}
         primaryCta={tc("getInTouch")}
-        primaryCtaMobile={tc("getInTouch")}
         secondaryCta={tn("references")}
-        secondaryCtaMobile={tn("references")}
-        primaryHref={kontaktHref}
         secondaryHref={referenzenHref}
-        primaryAsModal
         brands={heroBrands}
         brandsLabel={content.brandsLabel}
       />
 
-      {/* Intro */}
-      <Section>
-        <Container size="narrow" className="text-center">
-          <Reveal>
-            <Eyebrow>{content.eyebrow}</Eyebrow>
-            <SectionHeading className="mt-4">{content.h1}</SectionHeading>
-          </Reveal>
-          <Reveal delay={120} className="mt-6 flex flex-col gap-4">
-            {content.intro.map((paragraph, index) => (
-              <p
-                key={index}
-                className="text-sm md:text-lg font-light leading-relaxed text-foreground/80"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </Reveal>
-          <Reveal delay={220} className="mt-8 flex justify-center">
-            <ContactButton withArrow>{tc("getInTouch")}</ContactButton>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* Trust-Band (Kennzahlen / Belege) */}
-      <Section className="border-t border-border/40 py-12 md:py-16">
+      {/* Intro – linksbündiges Statement mit Akzent-Leiste. */}
+      <Section className="border-t border-border/40">
         <Container>
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
-            {content.stats.map((stat, index) => (
-              <Reveal
-                key={stat.label}
-                delay={index * 90}
-                className="group text-center sm:text-left"
-              >
-                <dt className="font-sans font-extrabold tracking-tight text-foreground text-2xl transition-colors duration-300 group-hover:text-primary sm:text-3xl hyphens-auto [overflow-wrap:break-word]">
-                  {stat.value}
-                </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-foreground/75">
-                  {stat.label}
-                </dd>
-              </Reveal>
-            ))}
-          </dl>
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+            <Reveal className="lg:col-span-7">
+              <div className="border-l-2 border-primary/60 pl-5 md:pl-7">
+                <SectionHeading>{content.h1}</SectionHeading>
+              </div>
+            </Reveal>
+            <Reveal delay={120} className="flex flex-col gap-5 lg:col-span-5">
+              {content.intro.map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="max-w-prose text-sm font-light leading-relaxed text-foreground/80 md:text-base"
+                >
+                  {paragraph}
+                </p>
+              ))}
+              <div className="mt-2">
+                <ContactButton withArrow>{tc("getInTouch")}</ContactButton>
+              </div>
+            </Reveal>
+          </div>
         </Container>
       </Section>
 
-      {/* Warum wir – nummerierte Editorial-Liste statt Kachelraster */}
+      {/* Kennzahlen – Daten-Strip mit Hairline-Trennern. */}
+      <Section className="py-12 md:py-14">
+        <Container>
+          <Reveal>
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border/50 bg-border/40 sm:grid-cols-4">
+              {content.stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="group flex flex-col gap-2 bg-background p-6 md:p-7"
+                >
+                  <dt className="font-sans text-2xl font-extrabold tabular-nums tracking-tight text-primary transition-transform duration-300 group-hover:translate-x-0.5 md:text-3xl [overflow-wrap:break-word]">
+                    {stat.value}
+                  </dt>
+                  <dd className="text-xs leading-relaxed text-foreground/70 md:text-sm">
+                    {stat.label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* Warum wir – Bento (2x2) mit variierten Flächen. */}
       <Section className="border-t border-border/40">
         <Container>
           <Reveal className="max-w-2xl">
@@ -157,101 +157,98 @@ function HomeContent({
               <AnimatedUnderline>Jungen</AnimatedUnderline>
             </SectionHeading>
           </Reveal>
-          <ol className="mt-12 border-t border-border/40 md:mt-16">
-            {content.usps.map((usp, index) => (
-              <Reveal
-                as="li"
-                key={usp.title}
-                delay={index * 80}
-                spotlight
-                className="group grid grid-cols-[2.5rem_1fr] gap-x-5 gap-y-2 border-b border-border/40 px-3 py-7 -mx-3 rounded-xl transition-colors duration-300 hover:bg-foreground/[0.03] data-[active=true]:bg-foreground/[0.03] md:grid-cols-[4rem_minmax(0,17rem)_1fr] md:gap-x-10 md:py-9"
-              >
-                <AnimatedNumber
-                  value={index + 1}
-                  delay={index * 80}
-                  className="number-shimmer inline-block bg-gradient-to-r from-primary/50 via-foreground/90 to-primary/50 bg-clip-text font-sans font-extrabold tabular-nums text-2xl leading-none text-transparent transition-[transform,filter] duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.45)] group-data-[active=true]:scale-110 group-data-[active=true]:drop-shadow-[0_0_10px_rgba(37,99,235,0.45)] md:text-3xl"
-                />
-                <h3 className="self-center font-sans font-bold tracking-tight text-foreground text-lg md:text-xl">
-                  {usp.title}
-                </h3>
-                <p className="col-start-2 max-w-xl text-sm leading-relaxed text-foreground/75 md:col-start-3 md:self-center md:text-base">
-                  {usp.description}
-                </p>
-              </Reveal>
-            ))}
-          </ol>
-        </Container>
-      </Section>
-
-      {/* Leistungen – editoriales Wechsel-Layout mit Foto */}
-      <Section className="border-t border-border/40">
-        <Container>
-          <Reveal className="max-w-2xl">
-            <p className="font-sans text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-              {tc("services")}
-            </p>
-            <SectionHeading className="mt-3">{tc("ourServices")}</SectionHeading>
-          </Reveal>
-
-          <div className="mt-14 flex flex-col gap-16 md:mt-20 md:gap-24">
-            {services.map((service, index) => {
-              const reversed = index % 2 === 1;
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-14">
+            {content.usps.map((usp, index) => {
+              const tinted = index === 0 || index === 3;
               return (
-                <Reveal key={service.id}>
-                  <div className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
-                    {/* Text */}
-                    <div className={reversed ? "md:order-2" : undefined}>
-                      <p className="font-mono text-xs uppercase tracking-[0.2em] text-foreground/50">
-                        {String(index + 1).padStart(2, "0")}
-                        <span className="mx-2 text-foreground/30">—</span>
-                        {service.title}
-                      </p>
-                      <h3 className="mt-4 font-sans font-extrabold tracking-tight text-foreground text-2xl md:text-3xl">
-                        {service.title}
-                      </h3>
-                      <p className="mt-4 max-w-md text-sm md:text-base font-light leading-relaxed text-foreground/80">
-                        {service.shortDescription}
-                      </p>
-                      <ul className="mt-6 flex flex-col gap-3">
-                        {service.highlights.map((highlight) => (
-                          <li
-                            key={highlight}
-                            className="flex items-start gap-3 text-sm md:text-base text-foreground/80"
-                          >
-                            <span className="mt-px font-mono text-primary">+</span>
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Link
-                        href={service.pathname}
-                        className="group/link mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
-                      >
-                        {tc("readMore")}
-                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1" />
-                      </Link>
-                    </div>
-
-                    {/* Foto */}
-                    <div
-                      className={`group relative overflow-hidden rounded-2xl ring-1 ring-border/60 shadow-[0_18px_50px_rgba(0,0,0,0.4)] ${
-                        reversed ? "md:order-1" : undefined
-                      }`}
-                    >
-                      <Image
-                        src={service.image.src}
-                        alt={service.image.alt}
-                        width={1024}
-                        height={768}
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="aspect-[4/3] h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                <Reveal
+                  as="div"
+                  key={usp.title}
+                  delay={(index % 2) * 90}
+                  spotlight
+                  className="spotlight-card"
+                >
+                  <div
+                    className={cn(
+                      "tap-press group relative h-full overflow-hidden rounded-2xl border border-border/50 p-7 transition duration-300 hover:-translate-y-0.5 hover:border-primary/40 md:p-8",
+                      tinted ? "bg-card/60" : "bg-card/30",
+                    )}
+                  >
+                    {tinted && (
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_85%_0%,rgba(42,166,189,0.16),transparent_55%)]"
                       />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-                    </div>
+                    )}
+                    <span className="block h-px w-10 bg-primary/70" />
+                    <h3 className="mt-5 font-sans text-lg font-bold tracking-tight text-foreground md:text-xl">
+                      {usp.title}
+                    </h3>
+                    <p className="mt-3 max-w-md text-sm leading-relaxed text-foreground/75 md:text-base">
+                      {usp.description}
+                    </p>
                   </div>
                 </Reveal>
               );
             })}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Leistungen – zwei große Bild-Panels. */}
+      <Section className="border-t border-border/40">
+        <Container>
+          <Reveal className="max-w-2xl">
+            <SectionHeading>{tc("ourServices")}</SectionHeading>
+          </Reveal>
+          <div className="mt-10 grid gap-5 md:mt-14 md:grid-cols-2">
+            {services.map((service, index) => (
+              <Reveal
+                as="div"
+                key={service.id}
+                delay={index * 110}
+                spotlight
+                className="spotlight-card"
+              >
+                <Link
+                  href={service.pathname}
+                  className="tap-press group relative flex min-h-[24rem] flex-col justify-end overflow-hidden rounded-3xl ring-1 ring-border/60 p-7 transition duration-300 hover:ring-primary/40 md:min-h-[30rem] md:p-9"
+                >
+                  <Image
+                    src={service.image.src}
+                    alt={service.image.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="-z-20 object-cover transition duration-700 group-hover:scale-[1.05]"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 -z-10 bg-gradient-to-t from-background via-background/75 to-background/15"
+                  />
+                  <h3 className="font-sans text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">
+                    {service.title}
+                  </h3>
+                  <p className="mt-3 max-w-md text-sm font-light leading-relaxed text-foreground/80 md:text-base">
+                    {service.shortDescription}
+                  </p>
+                  <ul className="mt-5 flex flex-col gap-2">
+                    {service.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="flex items-start gap-2.5 text-sm text-foreground/80"
+                      >
+                        <span className="mt-px font-mono text-primary">+</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                    {tc("readMore")}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </Section>
@@ -276,23 +273,34 @@ function HomeContent({
         subtitle={tc("faqIntro")}
       />
 
-      {/* CTA */}
+      {/* CTA – markantes Full-Width-Band. */}
       <Section className="border-t border-border/40">
         <Container>
           <Reveal>
-          <Card className="group relative overflow-hidden p-10 md:p-16 text-center transition duration-500 hover:ring-primary/40">
-            <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--primary),transparent_70%)] opacity-[0.12] transition-opacity duration-500 group-hover:opacity-25" />
-            <SectionHeading>{content.cta.heading}</SectionHeading>
-            <p className="mx-auto mt-5 max-w-2xl text-sm md:text-lg font-light leading-relaxed text-foreground/80">
-              {content.cta.text}
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <ContactButton withArrow>{tc("getInTouch")}</ContactButton>
-              <ButtonLink href="/referenzen" variant="secondary">
-                {tn("references")}
-              </ButtonLink>
+            <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-card to-background p-9 md:p-14">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_120%_at_0%_0%,rgba(42,166,189,0.16),transparent_60%)]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_at_right,black,transparent_75%)]"
+              />
+              <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+                <div>
+                  <SectionHeading>{content.cta.heading}</SectionHeading>
+                  <p className="mt-5 max-w-2xl text-sm font-light leading-relaxed text-foreground/80 md:text-lg">
+                    {content.cta.text}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <ContactButton withArrow>{tc("getInTouch")}</ContactButton>
+                  <ButtonLink href="/referenzen" variant="secondary">
+                    {tn("references")}
+                  </ButtonLink>
+                </div>
+              </div>
             </div>
-          </Card>
           </Reveal>
         </Container>
       </Section>
