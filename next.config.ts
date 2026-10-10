@@ -1,25 +1,18 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // Im CMS hochgeladene Bilder liegen im Supabase Storage und werden über
-  // next/image geladen. Erlaubt die öffentlichen Storage-URLs (*.supabase.co).
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*.supabase.co",
-        pathname: "/storage/v1/object/public/**",
-      },
-    ],
+  async redirects() {
+    // Alte URLs der bisherigen Website
+    return [
+      { source: "/references", destination: "/referenzen", permanent: true },
+      { source: "/ingenieurbuero-jungen", destination: "/impressum", permanent: true },
+      { source: "/datenschutzerklaerung", destination: "/datenschutz", permanent: true },
+      { source: "/links", destination: "/kontakt", permanent: true },
+      { source: "/en/:path*", destination: "/:path*", permanent: true },
+    ];
   },
-  // Vermeidet doppelte Slashes / sorgt für saubere, SEO-freundliche Trailing-Slash-Konsistenz.
-  trailingSlash: false,
-  // Sicherheits-Header verbessern Trust-Signale (indirekt SEO-relevant).
   async headers() {
     return [
       {
@@ -28,14 +21,11 @@ const nextConfig: NextConfig = {
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
-          },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
     ];
   },
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;
