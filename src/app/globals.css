@@ -25,10 +25,19 @@
 }
 
 html {
+  font-size: 16px;
   background: var(--color-paper);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Ab großen Bildschirmen (QHD/4K) wächst das gesamte Layout proportional mit,
+   statt als schmaler Streifen in der Mitte zu stehen. */
+@media (min-width: 1680px) {
+  html {
+    font-size: calc(100vw / 105);
+  }
 }
 
 body {

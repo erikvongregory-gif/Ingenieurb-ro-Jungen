@@ -133,7 +133,7 @@ export function Services() {
                     <ArrowUpRight className="size-5 transition-transform duration-500 ease-out-expo group-hover:rotate-45" strokeWidth={1.6} />
                   </span>
                 </div>
-                <div className="relative mx-auto my-6 aspect-[32/22] w-full max-w-[360px] text-ink transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]">
+                <div className="relative mx-auto my-6 aspect-[32/22] w-full max-w-[22.5rem] text-ink transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]">
                   <Art className="h-full w-full" />
                 </div>
                 <h3 className="relative overflow-hidden pb-[0.08em] text-4xl font-medium tracking-[-0.03em] md:text-6xl">

@@ -66,9 +66,9 @@ export function Hero() {
           <p data-h="meta" className="label hidden md:block">Blatt 01 · Maßstab 1:1</p>
         </div>
 
-        <div data-h="title" className="relative mt-16 md:mt-20">
+        <div data-h="title" className="relative mt-16 [--h1:min(calc((100vw_-_6rem)/8.7),8.8rem)] md:mt-20">
           <h1
-            className="text-[clamp(2.6rem,11vw,5rem)] sm:text-[calc((100vw_-_64px)/8.7)] lg:text-[min(calc((100vw_-_96px)/8.7),8.8rem)] font-medium leading-[0.9] tracking-[-0.05em] text-ink"
+            className="text-[clamp(2.6rem,11vw,5rem)] sm:text-[calc((100vw_-_4rem)/8.7)] lg:text-[length:var(--h1)] font-medium leading-[0.9] tracking-[-0.05em] text-ink"
           >
             <Line>
               <span id="dim-messen" className="inline-block">Messen</span> Sie uns
@@ -87,7 +87,7 @@ export function Hero() {
 
           <p
             data-hf
-            className="invisible absolute right-0 top-[35%] hidden max-w-[24rem] text-lg leading-relaxed text-ink-2 xl:block 2xl:max-w-[27rem] 2xl:text-xl"
+            className="invisible absolute right-0 top-[calc(var(--h1)*0.98)] hidden max-w-[28rem] text-lg leading-relaxed text-ink-2 xl:block"
           >
             {lead}
           </p>

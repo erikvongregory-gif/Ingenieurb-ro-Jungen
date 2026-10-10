@@ -89,7 +89,7 @@ export function RetrofitScrub() {
 
   return (
     <section ref={root} className="relative overflow-hidden border-y border-line bg-paper-2/70">
-      <div className="mx-auto grid h-dvh max-h-[1000px] min-h-[640px] w-full max-w-[1320px] grid-rows-[auto_1fr_auto] gap-6 px-5 py-20 sm:px-8 lg:grid-cols-12 lg:grid-rows-1 lg:items-center lg:gap-12 lg:px-12 lg:py-24">
+      <div className="mx-auto grid h-dvh max-h-[62.5rem] min-h-[40rem] w-full max-w-[82.5rem] grid-rows-[auto_1fr_auto] gap-6 px-5 py-20 sm:px-8 lg:grid-cols-12 lg:grid-rows-1 lg:items-center lg:gap-12 lg:px-12 lg:py-24">
         {/* Text */}
         <div className="lg:col-span-4">
           <Label>Retrofit in Echtzeit</Label>
@@ -122,7 +122,7 @@ export function RetrofitScrub() {
 
         {/* Zeichnung */}
         <div className="relative min-h-0 lg:col-span-8">
-          <div className="relative mx-auto h-full max-h-full w-full max-w-[820px] lg:h-auto">
+          <div className="relative mx-auto h-full max-h-full w-full max-w-[51rem] lg:h-auto">
             <CabinetSvg />
             <div className="absolute right-3 top-3 rounded-full border border-line bg-surface px-3 py-1 font-mono text-[11px] tabular-nums text-ink-2">
               Fortschritt <span data-pct>0 %</span>

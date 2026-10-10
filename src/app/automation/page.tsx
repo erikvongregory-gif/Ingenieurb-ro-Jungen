@@ -30,7 +30,7 @@ export default function AutomationPage() {
                 <h2 data-reveal="lines" className="mt-6 text-[clamp(2rem,3.4vw,3rem)] font-medium leading-[1.05] tracking-[-0.03em]">
                   Lösungen, die heute und morgen überzeugen.
                 </h2>
-                <div className="mt-10 max-w-[480px]">
+                <div className="mt-10 max-w-[30rem]">
                   <ControlSchematic />
                 </div>
               </div>

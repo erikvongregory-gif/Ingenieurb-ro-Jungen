@@ -16,7 +16,7 @@ export function PageHero({ label, title, lead, index, aside }: Props) {
       <div className="bg-grid bg-grid-fade pointer-events-none absolute inset-0" aria-hidden />
       <Container className="relative">
         <nav aria-label="Brotkrumen" className="label flex items-center gap-2">
-          <Link href="/" className="hover:text-ink">Start</Link>
+          <Link href="/" className="-my-3 py-3 hover:text-ink">Start</Link>
           <span aria-hidden>/</span>
           <span className="text-ink">{label}</span>
         </nav>

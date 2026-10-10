@@ -19,10 +19,10 @@ export function CtaBand({ title = "Sprechen wir über Ihre Anlage." }: { title?:
             </div>
             <div className="flex flex-col gap-3 lg:col-span-4 lg:items-end">
               <Button href="/kontakt">Projekt anfragen</Button>
-              <a href={`tel:${site.contact.phone}`} className="link-underline text-lg font-medium tracking-tight">
+              <a href={`tel:${site.contact.phone}`} className="link-underline inline-block py-2 text-lg font-medium tracking-tight">
                 {site.contact.phoneDisplay}
               </a>
-              <a href={`mailto:${site.contact.email}`} className="link-underline text-muted">
+              <a href={`mailto:${site.contact.email}`} className="link-underline inline-block py-2 text-muted">
                 {site.contact.email}
               </a>
             </div>

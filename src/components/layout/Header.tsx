@@ -106,7 +106,7 @@ export function Header() {
           scrolled && !open ? "border-b border-line/80 bg-paper/85 backdrop-blur-md" : "border-b border-transparent",
         )}
       >
-        <div className="mx-auto flex h-[72px] w-full max-w-[1320px] items-center justify-between px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto flex h-[4.5rem] w-full max-w-[82.5rem] items-center justify-between px-5 sm:px-8 lg:px-12">
           <div data-hdr-item>
             <Logo />
           </div>

@@ -8,13 +8,13 @@ export function Profile() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-28">
+            <div className="max-w-[28rem] lg:sticky lg:top-28">
               <figure data-reveal="image" className="relative aspect-square overflow-hidden rounded-[22px] bg-paper-2">
                 <Image
                   src={site.person.image}
                   alt={`${site.person.name}, ${site.person.role}, Ingenieurbüro Jungen`}
                   fill
-                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  sizes="(min-width: 1680px) 28rem, (min-width: 1024px) 448px, 100vw"
                   className="object-cover"
                   priority={false}
                 />

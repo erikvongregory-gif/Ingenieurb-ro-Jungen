@@ -28,7 +28,7 @@ export const site = {
   person: {
     name: "Frank Jungen",
     role: "Inhaber, Dipl.-Ing.",
-    image: "/team/frank-jungen.png",
+    image: "/team/frank-jungen-hd.webp",
     linkedin: "https://www.linkedin.com/in/frank-jungen-15302664/",
   },
 } as const;
